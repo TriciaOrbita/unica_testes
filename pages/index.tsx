@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 
 interface PersonData {
-  'p.nom_pessoa': string;
-  'p.num_cpf_pessoa': string; 
+  ' p.nom_pessoa': string;
+  ' p.num_cpf_pessoa': string; 
 }
 
 export default function Home() {
