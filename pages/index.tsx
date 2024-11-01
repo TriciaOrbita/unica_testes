@@ -102,7 +102,6 @@ export default function Home() {
     'p.data_nascimento': '-',
     ' p.dta_nasc_pessoa': '-',
     ' p.num_nis_pessoa_atual': '-',
-    'p.cns': '-',
     ' p.nom_completo_mae_pessoa': '-',
     ' p.nom_completo_pai_pessoa': '-',
     ' p.sig_uf_munic_nasc_pessoa': '-',
@@ -147,9 +146,6 @@ export default function Home() {
             }, {
               label: "CadÚnico", 
               value: displayPerson[' p.num_nis_pessoa_atual']
-            }, {
-              label: "CNS", 
-              value: displayPerson['p.cns'] // Exibe o valor do CNS
             }, {
               label: "Nome da Mãe", 
               value: displayPerson[' p.nom_completo_mae_pessoa']
