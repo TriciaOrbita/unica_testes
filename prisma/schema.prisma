@@ -1,0 +1,254 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:esus@35.199.90.104:5433/esus"
+}
+
+model tb_fat_cad_individual {
+  co_seq_fat_cad_individual               Int      @id @default(autoincrement())
+  nu_uuid_ficha                            String   @unique
+  nu_uuid_ficha_origem                     String?
+  st_recusa_cadastro                       Boolean?
+  nu_cns                                   String?
+  dt_nascimento                            DateTime?
+  st_desconhece_mae                        Boolean?
+  co_dim_profissional                      Int?
+  co_dim_tipo_ficha                        Int?
+  co_dim_municipio                         Int?
+  co_dim_unidade_saude                     Int?
+  co_dim_equipe                            Int?
+  co_dim_tempo                             Int?
+  co_dim_tempo_validade                    Int?
+  co_dim_tempo_validade_recusa             Int?
+  co_dim_sexo                              Int?
+  co_dim_raca_cor                          Int?
+  co_dim_nacionalidade                     Int?
+  co_dim_pais_nascimento                   Int?
+  co_dim_municipio_cidadao                Int?
+  nu_cns_responsavel                       String?
+  st_responsavel_familiar                  Boolean?
+  st_frequenta_creche                      Boolean?
+  st_frequenta_cuidador                    Boolean?
+  st_participa_grupo_comunitario          Boolean?
+  st_plano_saude_privado                   Boolean?
+  st_comunidade_tradicional                 Boolean?
+  st_deficiencia                           Boolean?
+  st_defi_auditiva                         Boolean?
+  st_defi_intelectual_cognitiva            Boolean?
+  st_defi_outra                            Boolean?
+  st_defi_visual                            Boolean?
+  st_defi_fisica                           Boolean?
+  st_gestante                              Boolean?
+  st_doenca_respiratoria                   Boolean?
+  st_doenca_respira_asma                   Boolean?
+  st_doenca_respira_dpoc_enfisem           Boolean?
+  st_doenca_respira_outra                  Boolean?
+  st_doenca_respira_n_sabe                 Boolean?
+  st_fumante                               Boolean?
+  st_alcool                                Boolean?
+  st_outra_droga                           Boolean?
+  st_hipertensao_arterial                  Boolean?
+  st_diabete                               Boolean?
+  st_avc                                    Boolean?
+  st_infarto                                Boolean?
+  st_hanseniase                            Boolean?
+  st_tuberculose                           Boolean?
+  st_cancer                                Boolean?
+  st_internacao_12                         Boolean?
+  st_tratamento_psiquiatra                 Boolean?
+  st_acamado                               Boolean?
+  st_domiciliado                           Boolean?
+  st_usa_planta_medicinal                  Boolean?
+  st_doenca_cardiaca                       Boolean?
+  st_doenca_card_insuficiencia             Boolean?
+  st_doenca_card_outro                     Boolean?
+  st_doenca_card_n_sabe                    Boolean?
+  st_problema_rins                         Boolean?
+  st_problema_rins_insuficiencia           Boolean?
+  st_problema_rins_outro                   Boolean?
+  st_problema_rins_nao_sabe                Boolean?
+  st_pic                                   Boolean?
+  st_morador_rua                           Boolean?
+  st_recebe_beneficio                      Boolean?
+  st_referencia_familiar                   Boolean?
+  co_dim_frequencia_alimentacao            Int?
+  st_orig_alimen_restaurante_pop           Boolean?
+  st_orig_alimen_doacao_reli               Boolean?
+  st_orig_alimen_doacao_rest                Boolean?
+  st_orig_alimen_doacao_popular            Boolean?
+  st_orig_alimen_outros                    Boolean?
+  st_acompanhado_instituicao              Boolean?
+  st_visita_familiar_frequente             Boolean?
+  st_higiene_pessoal_acesso                Boolean?
+  st_hig_pess_banho                        Boolean?
+  st_hig_pess_sanitario                    Boolean?
+  st_hig_pess_higiene_bucal                Boolean?
+  st_hig_pess_outros                       Boolean?
+  co_dim_tipo_parentesco                   Int?
+  co_dim_cbo                               Int?
+  co_dim_tipo_escolaridade                 Int?
+  co_dim_situacao_trabalho                 Int?
+  co_dim_tipo_orientacao_sexual           Int?
+  co_dim_tipo_saida_cadastro                Int?
+  co_dim_tipo_condicao_peso                Int?
+  co_dim_tempo_morador_rua                 Int?
+  co_dim_etnia                             Int?
+  co_dim_cbo_cidadao                      Int?
+  co_dim_identidade_genero                 Int?
+  co_dim_faixa_etaria                      Int?
+  st_desconhece_pai                        Boolean?
+  st_informar_orientacao_sexual           Boolean?
+  st_informar_identidade_genero            Boolean?
+  dt_naturalizacao                         DateTime?
+  dt_entrada_brasil                       DateTime?
+  dt_obito                                 DateTime?
+  st_respons_crianca_adulto_resp           Boolean?
+}
+
+model tb_fat_cidadao_pec {
+  co_seq_fat_cidadao_pec                  Int      @id @default(autoincrement())
+  co_cidadao                               Int?
+  nu_cns                                   String?
+  no_cidadao                               String?
+  no_social_cidadao                        String?
+  co_dim_tempo_nascimento                  Int?
+  co_dim_sexo                              Int?
+  co_dim_identidade_genero                 Int?
+  nu_telefone_celular                      String?
+  st_faleceu                               Boolean?
+  st_lookup_etl                            Boolean?
+  st_deletar                                Boolean?
+  nu_cpf_cidadao                           String?
+  co_dim_unidade_saude_vinc                Int?
+  co_dim_equipe_vinc                       Int?
+}
+
+model tb_fat_cidadao_territorio {
+  co_seq_fat_cidadao_territorio           Int      @id @default(autoincrement())
+  co_dim_municipio                         Int?
+  co_dim_unidade_saude                     Int?
+  co_dim_equipe                            Int?
+  nu_micro_area                             String?
+  co_fat_cidadao_pec                      Int?
+  st_responsavel                           Boolean?
+  st_responsavel_informado                 Boolean?
+  st_mudou_se                              Boolean?
+  st_vivo                                  Boolean?
+  st_responsavel_com_fci                    Boolean?
+  st_cns_null                              Boolean?
+  st_cidadao_consistente                   Boolean?
+  co_fat_familia_territorio               Int?
+  co_fat_ciddo_terrtrio_resp              Int?
+  st_processado_cidadao_respnsvl          Boolean?
+  co_fat_cad_individual                    Int?
+}
+
+model tb_fat_cidadao {
+  co_seq_fat_cidadao                       Int      @id @default(autoincrement())
+  nu_uuid_ficha                             String   @unique
+  nu_uuid_ficha_origem                      String?
+  nu_cns                                    String?
+  co_fat_cad_individual                     Int?
+  co_fat_familia                            Int?
+  co_dim_tempo                              Int?
+  co_fat_cidadao_raiz                      Int?
+  co_fat_cidadao_pai1                      Int?
+  co_fat_cidadao_pai2                      Int?
+  co_dim_tempo_validade                     Int?
+  co_dim_linha_tempo_validade               Int?
+  co_fat_cidadao_raiz_equipe               Int?
+  co_fat_cidadao_pai1_equipe               Int?
+  co_fat_cidadao_pai2_equipe               Int?
+  co_dim_tempo_valdd_equipe                 Int?
+  co_dim_linha_tempo_valdd_equp             Int?
+  co_fat_cidadao_raiz_undde_sade           Int?
+  co_fat_cidadao_pai1_undde_sade           Int?
+  co_fat_cidadao_pai2_undde_sade           Int?
+  co_dim_tempo_valdd_unidd_saud             Int?
+  co_dim_lnh_vldd_unidd_sad                 Int?
+  co_fat_cidadao_raiz_municipio            Int?
+  co_fat_cidadao_pai1_municipio            Int?
+  co_fat_cidadao_pai2_municipio            Int?
+  co_dim_tempo_valdd_municipio              Int?
+  co_dim_linha_valdd_municipio              Int?
+  co_dim_municipio                           Int?
+  co_dim_unidade_saude                       Int?
+  co_dim_equipe                              Int?
+  st_responsavel_familiar                    Boolean?
+  st_mudou                                   Boolean?
+  st_vivo                                    Boolean?
+  st_ativo_territorio                        Boolean?
+  st_processo_linha_tempo                   Boolean?
+  st_processo_familia                       Boolean?
+  st_ficha_inativa                          Boolean?
+  nu_cpf_cidadao                            String?
+}
+
+model tb_fat_atendimento_individual {
+  co_seq_fat_atd_ind                         Int      @id @default(autoincrement())
+  co_dim_municipio                           Int?
+  co_dim_tipo_ficha                          Int?
+  co_dim_profissional_1                      Int?
+  co_dim_profissional_2                      Int?
+  co_dim_cbo_1                               Int?
+  co_dim_cbo_2                               Int?
+  co_dim_unidade_saude_1                     Int?
+  co_dim_unidade_saude_2                     Int?
+  co_dim_equipe                               Int?
+  nu_cns                                     String?
+  dt_atendimento                             DateTime?
+  nu_numero_atendimento                      String?
+  co_fat_cidadao                             Int?
+  st_conduta_manter_observacao               Boolean?
+}
+
+model tb_fat_atendimento_domiciliar {
+  co_seq_fat_atend_domiciliar               Int      @id @default(autoincrement())
+  co_dim_municipio                          Int?
+  co_dim_equipe                              Int?
+  nu_cns                                    String?
+  dt_atendimento                             DateTime?
+  co_fat_cidadao                            Int?
+  st_condic_adapt_uso_ortes_prot            Boolean?
+}
+
+model tb_fat_visita_domiciliar {
+  co_seq_fat_visita_domiciliar              Int      @id @default(autoincrement())
+  nu_uuid_ficha                             String?
+  nu_latitude                                String?
+  nu_longitude                               String?
+  co_fat_cidadao                            Int?
+}
+
+model tb_fat_atend_odonto_proced {
+  co_seq_fat_atend_odonto_proced            Int      @id @default(autoincrement())
+  nu_uuid_ficha                             String?
+  co_fat_cidadao                            Int?
+  co_procedimento                            Int?
+  st_situacao_procedimento                   Boolean?
+}
+
+model tb_fat_atendimento_odonto {
+  co_seq_fat_atd_odnt                       Int      @id @default(autoincrement())
+  nu_uuid_ficha                             String?
+  nu_cpf_cidadao                           String?
+  dt_atendimento                             DateTime?
+  nu_peso                                   Float?
+}
+
+model tb_fat_atend_dom_proced {
+  co_seq_fat_atend_dom_proced               Int      @id @default(autoincrement())
+  nu_uuid_ficha                             String?
+  co_fat_cidadao                            Int?
+  co_procedimento                            Int?
+}
+
+model tb_fat_atd_ind_exames {
+  co_seq_fat_atd_ind_exames                 Int      @id @default(autoincrement())
+  co_fat_atd_ind                            Int?
+  co_exame                                   Int?
+  st_situacao_exame                         Boolean?
+}

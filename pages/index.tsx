@@ -1,7 +1,5 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import Papa from 'papaparse';
-// import Tags from '../components/Tags';
 
 interface PersonData {
   ' p.nom_pessoa': string;
@@ -10,7 +8,6 @@ interface PersonData {
   'p.data_nascimento': string;
   ' p.dta_nasc_pessoa': string;
   ' p.num_nis_pessoa_atual': string;
-  'p.cns': string;
   ' p.nom_completo_mae_pessoa': string;
   ' p.nom_completo_pai_pessoa': string;
   ' p.sig_uf_munic_nasc_pessoa': string;
@@ -22,6 +19,19 @@ interface PersonData {
   ' d.dat_atual_fam': string;
 }
 
+interface DataItem {
+  co_seq_fat_cidadao_pec: number;
+  co_cidadao: string | number | null; // Ajuste aqui
+  nu_cns: string | null; // Adicionei nu_cns aqui
+  no_cidadao: string | null;
+  no_social_cidadao: string | null;
+  co_dim_tempo_nascimento: number | null;
+  co_dim_equipe_vinc: number | null;
+}
+
+
+
+// Função para calcular idade
 const calculateAge = (birthdate: string): number => {
   if (!birthdate) return 0;
   const [day, month, year] = birthdate.split('/').map(Number);
@@ -45,23 +55,26 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/dados.csv');
-        if (!response.ok) throw new Error('Failed to fetch CSV file');
-        
-        const text = await response.text();
-        Papa.parse(text, {
-          header: true,
-          delimiter: ';',
-          complete: (results) => setPersonData(results.data as PersonData[]),
-        });
+        const response = await fetch('/api/combinedData');
+        if (!response.ok) throw new Error('Failed to fetch combined data');
+    
+        const data = await response.json();
+        console.log("Dados recebidos no frontend:", data); // Log dos dados recebidos
 
+        if (Array.isArray(data.combinedData)) {
+          setPersonData(data.combinedData);
+        } else {
+          console.warn('Os dados recebidos não são um array, definindo como array vazio.');
+          setPersonData([]);
+        }
+        
         setLoading(false);
       } catch (error) {
         console.error('Error loading data:', error);
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
 
@@ -119,21 +132,46 @@ export default function Home() {
             </div>
           </div>
           <div className="p-6 max-w-md mx-auto bg-white rounded-lg shadow-md">
-            {[
-              { label: "Condição de Saúde", value: displayPerson['p.condicao_saude'] },
-              { label: "CPF", value: displayPerson[' p.num_cpf_pessoa'] },
-              { label: "Data de Nascimento", value: displayPerson[' p.dta_nasc_pessoa'] },
-              { label: "Idade", value: displayPerson[' p.dta_nasc_pessoa'] ? `${calculateAge(displayPerson[' p.dta_nasc_pessoa'])} anos` : '-' },
-              { label: "CadÚnico", value: displayPerson[' p.num_nis_pessoa_atual'] },
-              { label: "CNS", value: displayPerson['p.cns'] },
-              { label: "Nome da Mãe", value: displayPerson[' p.nom_completo_mae_pessoa'] },
-              { label: "Nome do Pai", value: displayPerson[' p.nom_completo_pai_pessoa'] },
-              { label: "Município de Nascimento", value: `${displayPerson[' p.nom_ibge_munic_nasc_pessoa']} - ${displayPerson[' p.sig_uf_munic_nasc_pessoa']}` },
-              { label: "Nacionalidade", value: displayPerson['p.nacionalidade'] },
-              { label: "Sexo", value: displayPerson[' p.cod_sexo_pessoa'] === '1' ? 'Masculino' : displayPerson[' p.cod_sexo_pessoa'] === '2' ? 'Feminino' : '-' },
-              { label: "Endereço", value: displayPerson['p.endereco'] },
-              { label: "Situação de Rua", value: displayPerson[' p.marc_sit_rua'] === '0' ? 'Não está em situação de rua' : displayPerson[' p.marc_sit_rua'] === '1' ? 'Está em situação de rua' : '-' }
-            ].map((item, index) => (
+            {[{
+              label: "Condição de Saúde", 
+              value: displayPerson['p.condicao_saude']
+            }, {
+              label: "CPF", 
+              value: displayPerson[' p.num_cpf_pessoa']
+            }, {
+              label: "Data de Nascimento", 
+              value: displayPerson[' p.dta_nasc_pessoa']
+            }, {
+              label: "Idade", 
+              value: displayPerson[' p.dta_nasc_pessoa'] ? `${calculateAge(displayPerson[' p.dta_nasc_pessoa'])} anos` : '-'
+            }, {
+              label: "CadÚnico", 
+              value: displayPerson[' p.num_nis_pessoa_atual']
+            }, {
+              label: "CNS", 
+              value: displayPerson['p.cns'] // Exibe o valor do CNS
+            }, {
+              label: "Nome da Mãe", 
+              value: displayPerson[' p.nom_completo_mae_pessoa']
+            }, {
+              label: "Nome do Pai", 
+              value: displayPerson[' p.nom_completo_pai_pessoa']
+            }, {
+              label: "Município de Nascimento", 
+              value: `${displayPerson[' p.nom_ibge_munic_nasc_pessoa']} - ${displayPerson[' p.sig_uf_munic_nasc_pessoa']}`
+            }, {
+              label: "Nacionalidade", 
+              value: displayPerson['p.nacionalidade']
+            }, {
+              label: "Sexo", 
+              value: displayPerson[' p.cod_sexo_pessoa'] === '1' ? 'Masculino' : displayPerson[' p.cod_sexo_pessoa'] === '2' ? 'Feminino' : '-'
+            }, {
+              label: "Endereço", 
+              value: displayPerson['p.endereco']
+            }, {
+              label: "Situação de Rua", 
+              value: displayPerson[' p.marc_sit_rua'] === '0' ? 'Não está em situação de rua' : displayPerson[' p.marc_sit_rua'] === '1' ? 'Está em situação de rua' : '-'
+            }].map((item, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between">
                   <p className="font-semibold">{item.label}:</p>
