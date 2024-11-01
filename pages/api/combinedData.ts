@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 export const config = {
     api: {
       bodyParser: {
-        sizeLimit: '10mb', // Ajuste o tamanho conforme necessário
+        sizeLimit: '15mb', // Ajuste o tamanho conforme necessário
       },
     },
   };
