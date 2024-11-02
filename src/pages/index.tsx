@@ -1,11 +1,11 @@
 import { usePessoasEscola } from "@/service/queries/getPessoasEscola";
 import { usePessoasSaude } from "@/service/queries/getPessoasSaude";
-import { usePessoas } from "@/service/queries/getPessoas"; 
+import { usePessoas } from "@/service/queries/getPessoas";
 import { PersonHealthData } from "@/components/pages/home/person-health-data";
 import { PersonSchoolData } from "@/components/pages/home/person-school-data";
-import { PersonCadunicoData } from "@/components/pages/home/person-cadunico-data"; 
-import { PersonData } from "@/components/pages/home/person-data"; 
-import Tags from "@/components/pages/home/Tags"; 
+import { PersonCadunicoData } from "@/components/pages/home/person-cadunico-data";
+import { PersonData } from "@/components/pages/home/person-data";
+import Tags from "@/components/pages/home/Tags";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import SearchInput from "@/components/pages/home/SearchInput";
 import React, { useState } from "react";
