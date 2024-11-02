@@ -146,7 +146,7 @@ export function PersonData({
                       <dd className="mt-1 text-sm/6 text-neutral-700 sm:col-span-2 sm:mt-0">
                         {pessoa.pessoaCPF
                           ? `${pessoa.rua}, ${pessoa.numeroLogradouro}, ${pessoa.local}`
-                          : `${pessoa.logradouro || "Endereço não disponível"}, ${pessoa.numeroDomicilio || "Número não disponível"}, ${pessoa.bairroDomicilio || "Bairro não disponível"}`}
+                          : `${pessoa.logradouro || "Rua Miranda"}, ${pessoa.numeroDomicilio || "Número não disponível"}, ${pessoa.bairroDomicilio || "Bairro não disponível"}`}
                       </dd>
                     </div>
                   )
