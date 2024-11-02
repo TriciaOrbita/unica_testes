@@ -130,7 +130,7 @@ export default function Home() {
                 {/* Renderiza os componentes apenas se houver um termo de busca */}
                 {searchTerm && (
                   <>
-                  <PersonSchoolData
+                    <PersonSchoolData
                       pessoasEscola={pessoasEscola}
                       searchTerm={searchTerm}
                     />
