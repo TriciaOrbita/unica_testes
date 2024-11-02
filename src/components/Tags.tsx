@@ -1,8 +1,8 @@
 // Tags.tsx
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const Tags = () => {
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
   const tags = [
     {
@@ -20,20 +20,22 @@ const Tags = () => {
       description: 'Algumas vacinas ainda não foram aplicadas.',
       colorClass: 'bg-blue-100 text-blue-700',
     },
-  ];
+  ]
 
   const handleTagClick = (tag: string) => {
-    setSelectedTag(selectedTag === tag ? null : tag); // Alterna a seleção
-  };
+    setSelectedTag(selectedTag === tag ? null : tag) // Alterna a seleção
+  }
 
   const handleClose = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Impede a propagação do evento
-    setSelectedTag(null);
-  };
+    e.stopPropagation() // Impede a propagação do evento
+    setSelectedTag(null)
+  }
 
   return (
     <div className="p-4 border border-gray-300 rounded-lg shadow-md w-full max-w-xs ml-auto">
-      <h3 className="text-lg font-semibold mb-3 text-gray-700 text-center">Tags</h3>
+      <h3 className="text-lg font-semibold mb-3 text-gray-700 text-center">
+        Tags
+      </h3>
       <div className="flex flex-col items-center space-y-2 w-full">
         {tags.map(({ title, description, colorClass }) => (
           <div
@@ -44,7 +46,9 @@ const Tags = () => {
             <div className="flex items-center justify-between">
               <h4 className="text-md font-semibold">{title}</h4>
               {/* Ícone da seta */}
-              <span className={`transition-transform duration-200 ${selectedTag === title ? 'rotate-180' : ''}`}>
+              <span
+                className={`transition-transform duration-200 ${selectedTag === title ? 'rotate-180' : ''}`}
+              >
                 ▼ {/* Seta para baixo */}
               </span>
             </div>
@@ -64,7 +68,7 @@ const Tags = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Tags;
+export default Tags
