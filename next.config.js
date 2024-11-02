@@ -2,9 +2,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'https://plus.unsplash.com',
-        pathname: '/v0/b/**', // ou o caminho mais específico do seu bucket
+        protocol: "https",
+        hostname: "https://plus.unsplash.com",
+        pathname: "/v0/b/**", // ou o caminho mais específico do seu bucket
       },
     ],
   },
