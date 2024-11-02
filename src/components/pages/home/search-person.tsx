@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type Person = {
   nome: string;
@@ -14,7 +14,11 @@ type SearchPersonProps = {
   onSelect: (pessoa: Person) => void; // Tipo atualizado
 };
 
-export const SearchPerson: React.FC<SearchPersonProps> = ({ onSearch, filteredResults, onSelect }) => {
+export const SearchPerson: React.FC<SearchPersonProps> = ({
+  onSearch,
+  filteredResults,
+  onSelect,
+}) => {
   return (
     <div>
       <input
@@ -24,7 +28,9 @@ export const SearchPerson: React.FC<SearchPersonProps> = ({ onSearch, filteredRe
       />
       <ul>
         {filteredResults.map((pessoa, index) => (
-          <li key={index} onClick={() => onSelect(pessoa)}>{pessoa.nome}</li> // Chamando onSelect aqui
+          <li key={index} onClick={() => onSelect(pessoa)}>
+            {pessoa.nome}
+          </li> // Chamando onSelect aqui
         ))}
       </ul>
     </div>

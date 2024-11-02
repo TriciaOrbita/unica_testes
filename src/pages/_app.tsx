@@ -1,10 +1,10 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import 'leaflet/dist/leaflet.css'
-import '../styles/globals.css'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "leaflet/dist/leaflet.css";
+import "../styles/globals.css";
 
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,5 +13,5 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </QueryClientProvider>
     </>
-  )
+  );
 }

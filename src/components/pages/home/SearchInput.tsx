@@ -1,5 +1,5 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import React from 'react';
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import React from "react";
 
 // Definindo a interface para as props do componente
 interface SearchPersonProps {
@@ -7,7 +7,10 @@ interface SearchPersonProps {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchPerson: React.FC<SearchPersonProps> = ({ searchTerm, setSearchTerm }) => {
+const SearchPerson: React.FC<SearchPersonProps> = ({
+  searchTerm,
+  setSearchTerm,
+}) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value); // Atualiza o termo de busca
   };

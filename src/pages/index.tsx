@@ -1,23 +1,23 @@
-import { usePessoasEscola } from '@/service/queries/getPessoasEscola';
-import { usePessoasSaude } from '@/service/queries/getPessoasSaude';
-import { usePessoas } from '@/service/queries/getPessoas'; // Import the CADÚnico service
-import { PersonHealthData } from '@/components/pages/home/person-health-data';
-import { PersonSchoolData } from '@/components/pages/home/person-school-data';
-import { PersonCadunicoData } from '@/components/pages/home/person-cadunico-data'; // Import the CADÚnico data component
-import { PersonData } from '@/components/pages/home/person-data'; // Import the PersonData component
-import Tags from '@/components/pages/home/Tags'; // Import the Tags component
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
-import SearchInput from '@/components/pages/home/SearchInput';
-import React, { useState } from 'react';
+import { usePessoasEscola } from "@/service/queries/getPessoasEscola";
+import { usePessoasSaude } from "@/service/queries/getPessoasSaude";
+import { usePessoas } from "@/service/queries/getPessoas"; // Import the CADÚnico service
+import { PersonHealthData } from "@/components/pages/home/person-health-data";
+import { PersonSchoolData } from "@/components/pages/home/person-school-data";
+import { PersonCadunicoData } from "@/components/pages/home/person-cadunico-data"; // Import the CADÚnico data component
+import { PersonData } from "@/components/pages/home/person-data"; // Import the PersonData component
+import Tags from "@/components/pages/home/Tags"; // Import the Tags component
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import SearchInput from "@/components/pages/home/SearchInput";
+import React, { useState } from "react";
 import {
   Bars3Icon,
   ExclamationTriangleIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline';
-import Image from 'next/image';
+} from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const { data: pessoas, error: errorPessoa } = usePessoas();
   const { data: pessoasEscola, error: errorEscola } = usePessoasEscola();
   const { data: pessoasSaude, error: errorSaude } = usePessoasSaude();
@@ -30,7 +30,8 @@ export default function Home() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <h2 className="flex items-center gap-2 text-red-600">
-          <ExclamationTriangleIcon className="h-5 w-5" /> Erro ao acessar a base de dados.
+          <ExclamationTriangleIcon className="h-5 w-5" /> Erro ao acessar a base
+          de dados.
         </h2>
       </div>
     );
@@ -114,26 +115,41 @@ export default function Home() {
           <div className="mx-auto max-w-[100rem] px-4">
             <div className="flex flex-col lg:flex-row gap-4">
               {pessoa && (
-                <PersonData 
-                pessoasCadunico={pessoasCadunico} 
-                pessoasSaude={pessoasSaude}
-                searchTerm={searchTerm} 
-              />
-              
+                <PersonData
+                  pessoasCadunico={pessoasCadunico}
+                  pessoasSaude={pessoasSaude}
+                  searchTerm={searchTerm}
+                />
               )}
               <div className="flex-1 flex flex-col gap-4">
-                <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                
+                <SearchInput
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                />
+
                 {/* Renderiza os componentes apenas se houver um termo de busca */}
                 {searchTerm && (
                   <>
-                    <PersonHealthData pessoasSaude={pessoasSaude} searchTerm={searchTerm} />
-                    <PersonSchoolData pessoasEscola={pessoasEscola} searchTerm={searchTerm} />
-                    <PersonCadunicoData pessoasCadunico={pessoasCadunico} searchTerm={searchTerm} />
+                    <PersonHealthData
+                      pessoasSaude={pessoasSaude}
+                      searchTerm={searchTerm}
+                    />
+                    <PersonSchoolData
+                      pessoasEscola={pessoasEscola}
+                      searchTerm={searchTerm}
+                    />
+                    <PersonCadunicoData
+                      pessoasCadunico={pessoasCadunico}
+                      searchTerm={searchTerm}
+                    />
                   </>
                 )}
               </div>
-              <Tags healthData={pessoasSaude} cadunicoData={pessoasCadunico} searchTerm={searchTerm} />
+              <Tags
+                healthData={pessoasSaude}
+                cadunicoData={pessoasCadunico}
+                searchTerm={searchTerm}
+              />
             </div>
           </div>
         </div>
