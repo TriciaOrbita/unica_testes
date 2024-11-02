@@ -1,37 +1,39 @@
-import { OtherData } from '@/components/pages/home/other-data'
-import { PersonData } from '@/components/pages/home/person-data'
-import { SearchPerson } from '@/components/pages/home/search-person'
-import { Container } from '@/components/ui/container'
-import { usePessoas } from '@/service/queries/getPessoas'
-import { usePessoasEscola } from '@/service/queries/getPessoasEscola'
-import { usePessoasSaude } from '@/service/queries/getPessoasSaude'
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
+import { usePessoasEscola } from '@/service/queries/getPessoasEscola';
+import { usePessoasSaude } from '@/service/queries/getPessoasSaude';
+import { usePessoas } from '@/service/queries/getPessoas'; // Import the CADÚnico service
+import { PersonHealthData } from '@/components/pages/home/person-health-data';
+import { PersonSchoolData } from '@/components/pages/home/person-school-data';
+import { PersonCadunicoData } from '@/components/pages/home/person-cadunico-data'; // Import the CADÚnico data component
+import { PersonData } from '@/components/pages/home/person-data'; // Import the PersonData component
+import Tags from '@/components/pages/home/Tags'; // Import the Tags component
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import SearchInput from '@/components/pages/home/SearchInput';
+import React, { useState } from 'react';
 import {
   Bars3Icon,
   ExclamationTriangleIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import Image from 'next/image'
+} from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 export default function Home() {
-  const { data: pessoasEscola, error: errorEscola } = usePessoasEscola()
-  console.log(pessoasEscola)
+  const [searchTerm, setSearchTerm] = useState('');
+  const { data: pessoas, error: errorPessoa } = usePessoas();
+  const { data: pessoasEscola, error: errorEscola } = usePessoasEscola();
+  const { data: pessoasSaude, error: errorSaude } = usePessoasSaude();
+  const { data: pessoasCadunico, error: errorCadunico } = usePessoas();
 
-  const { data: pessoas, error: errorPessoa } = usePessoas()
-  console.log(pessoas)
+  // Aqui, usaremos o primeiro elemento do array `pessoas` como exemplo.
+  const pessoa = pessoas?.[0];
 
-  const { data: pessoasSaude, error: errorSaude } = usePessoasSaude()
-  console.log(pessoasSaude)
-
-  if (errorEscola || errorPessoa || errorSaude) {
+  if (errorEscola || errorPessoa || errorSaude || errorCadunico) {
     return (
-      <Container className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <h2 className="flex items-center gap-2 text-red-600">
-          <ExclamationTriangleIcon className="h-5 w-5" /> Erro ao acessar a base
-          de dados.
+          <ExclamationTriangleIcon className="h-5 w-5" /> Erro ao acessar a base de dados.
         </h2>
-      </Container>
-    )
+      </div>
+    );
   }
 
   return (
@@ -86,7 +88,7 @@ export default function Home() {
                 />
               </div>
               <div className="-mr-2">
-                <PopoverButton className="relative inline-flex items-center justify-center rounded-md bg-neutral-100 p-2 text-grren-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-700">
+                <PopoverButton className="relative inline-flex items-center justify-center rounded-md bg-neutral-100 p-2 text-green-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-700">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Fechar menu</span>
                   <XMarkIcon aria-hidden="true" className="h-6 w-6" />
@@ -109,19 +111,29 @@ export default function Home() {
 
       <main>
         <div className="bg-white pt-24 lg:overflow-hidden lg:pb-14 lg:pt-28 min-h-screen">
-          <div className="mx-auto max-w-7xl px-4">
+          <div className="mx-auto max-w-[100rem] px-4">
             <div className="flex flex-col lg:flex-row gap-4">
-              <div className="">
-                <PersonData />
-              </div>
+              {pessoa && (
+                <PersonData 
+                pessoasCadunico={pessoasCadunico} 
+                pessoasSaude={pessoasSaude}
+                searchTerm={searchTerm} 
+              />
+              
+              )}
               <div className="flex-1 flex flex-col gap-4">
-                <div className="">
-                  <SearchPerson />
-                </div>
-                <div>
-                  <OtherData />
-                </div>
+                <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                
+                {/* Renderiza os componentes apenas se houver um termo de busca */}
+                {searchTerm && (
+                  <>
+                    <PersonHealthData pessoasSaude={pessoasSaude} searchTerm={searchTerm} />
+                    <PersonSchoolData pessoasEscola={pessoasEscola} searchTerm={searchTerm} />
+                    <PersonCadunicoData pessoasCadunico={pessoasCadunico} searchTerm={searchTerm} />
+                  </>
+                )}
               </div>
+              <Tags healthData={pessoasSaude} cadunicoData={pessoasCadunico} searchTerm={searchTerm} />
             </div>
           </div>
         </div>
@@ -132,5 +144,5 @@ export default function Home() {
         </h2>
       </footer>
     </div>
-  )
+  );
 }
