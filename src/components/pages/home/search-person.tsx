@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type Person = {
   nome: string;
@@ -22,8 +22,8 @@ export const SearchPerson: React.FC<SearchPersonProps> = ({
   return (
     <div>
       <input
-        type="text"
-        placeholder="Buscar pessoa..."
+        type='text'
+        placeholder='Buscar pessoa...'
         onChange={(e) => onSearch(e.target.value)}
       />
       <ul>
