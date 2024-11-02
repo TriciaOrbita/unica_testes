@@ -130,12 +130,12 @@ export default function Home() {
                 {/* Renderiza os componentes apenas se houver um termo de busca */}
                 {searchTerm && (
                   <>
-                    <PersonHealthData
-                      pessoasSaude={pessoasSaude}
+                  <PersonSchoolData
+                      pessoasEscola={pessoasEscola}
                       searchTerm={searchTerm}
                     />
-                    <PersonSchoolData
-                      pessoasEscola={pessoasEscola}
+                    <PersonHealthData
+                      pessoasSaude={pessoasSaude}
                       searchTerm={searchTerm}
                     />
                     <PersonCadunicoData
