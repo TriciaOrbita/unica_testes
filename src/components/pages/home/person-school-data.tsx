@@ -1,44 +1,44 @@
-import React from "react";
+import React from "react"
 
 interface PessoaEscola {
-  cpf: string;
-  nome: string;
-  situacao: string;
-  dataNascimento: string;
-  idadeMeses: string;
-  sexo: string;
-  nomeEscola: string;
-  turma: string;
-  bolsaFamilia: string;
-  pcd: string;
-  filiacao1: string;
-  filiacao2: string;
-  dataAtt: string;
-  localizacao: string;
-  bairro: string;
-  logradouro: string;
-  numero: string;
+  cpf: string
+  nome: string
+  situacao: string
+  dataNascimento: string
+  idadeMeses: string
+  sexo: string
+  nomeEscola: string
+  turma: string
+  bolsaFamilia: string
+  pcd: string
+  filiacao1: string
+  filiacao2: string
+  dataAtt: string
+  localizacao: string
+  bairro: string
+  logradouro: string
+  numero: string
 }
 
 interface PersonSchoolDataProps {
-  pessoasEscola: PessoaEscola[]; // Expecting an array of PessoaEscola
-  searchTerm: string; // Accept search term as a prop
+  pessoasEscola: PessoaEscola[] // Expecting an array of PessoaEscola
+  searchTerm: string // Accept search term as a prop
 }
 
 export function PersonSchoolData({
   pessoasEscola,
-  searchTerm,
+  searchTerm
 }: PersonSchoolDataProps) {
   if (!pessoasEscola || pessoasEscola.length === 0) {
-    return <p>Nenhum dado escolar disponível.</p>;
+    return <p>Nenhum dado escolar disponível.</p>
   }
 
   // Filter data based on the search term
   const filteredData = pessoasEscola.filter(
     (pessoa) =>
       pessoa.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pessoa.cpf.includes(searchTerm), // Also filter by CPF
-  );
+      pessoa.cpf.includes(searchTerm) // Also filter by CPF
+  )
 
   return (
     <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-300 bg-white shadow-lg min-w-[400px]">
@@ -118,5 +118,5 @@ export function PersonSchoolData({
         <p>Nenhum resultado encontrado.</p> // Message if no results match
       )}
     </div>
-  );
+  )
 }

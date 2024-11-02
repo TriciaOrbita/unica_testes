@@ -4,13 +4,13 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "https://plus.unsplash.com",
-        pathname: "/v0/b/**", // ou o caminho mais específico do seu bucket
-      },
-    ],
+        pathname: "/v0/b/**" // ou o caminho mais específico do seu bucket
+      }
+    ]
   },
   typescript: {
-    ignoreBuildErrors: true,
-  },
-};
+    ignoreBuildErrors: true
+  }
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

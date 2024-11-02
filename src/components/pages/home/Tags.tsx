@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 interface TagsProps {
-  healthData: { nomeCidadao: string; unidadeSaude?: string }[];
-  cadunicoData: { pessoaNome: string; local?: string }[];
-  searchTerm: string;
+  healthData: { nomeCidadao: string; unidadeSaude?: string }[]
+  cadunicoData: { pessoaNome: string; local?: string }[]
+  searchTerm: string
 }
 
 // Mapeamento de nomes para CPF
 const cpfMapping: { [key: string]: string } = {
   "Lara Souza da Trindade": "09579794286",
-  "HENRY GABRIEL DA SILVA FERREIRA": "10028205294",
-};
+  "HENRY GABRIEL DA SILVA FERREIRA": "10028205294"
+}
 
 const Tags = ({
   healthData = [],
   cadunicoData = [],
-  searchTerm,
+  searchTerm
 }: TagsProps) => {
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
   const vaccineConditions: { [key: string]: string } = {
     "HENRY GABRIEL DA SILVA FERREIRA": "Vacina contra a Gripe",
-    "Lara Souza da Trindade": "Vacina contra a Catapora",
-  };
+    "Lara Souza da Trindade": "Vacina contra a Catapora"
+  }
 
   const tags = [
     {
@@ -33,7 +33,7 @@ const Tags = ({
         (Array.isArray(healthData) &&
           healthData.some((person) => !person.nomeCidadao)) ||
         (Array.isArray(cadunicoData) &&
-          cadunicoData.some((person) => !person.pessoaNome)),
+          cadunicoData.some((person) => !person.pessoaNome))
     },
     {
       title: "Endereço Inválido",
@@ -42,10 +42,10 @@ const Tags = ({
       condition: () =>
         (Array.isArray(healthData) &&
           healthData.some(
-            (person) => person.unidadeSaude === "Endereço Inválido",
+            (person) => person.unidadeSaude === "Endereço Inválido"
           )) ||
         (Array.isArray(cadunicoData) &&
-          cadunicoData.some((person) => person.local === "Endereço Inválido")),
+          cadunicoData.some((person) => person.local === "Endereço Inválido"))
     },
     {
       title: "Vacinas Pendentes",
@@ -53,17 +53,17 @@ const Tags = ({
       colorClass: "bg-blue-100 text-blue-700",
       condition: () => {
         const isCpfSearch =
-          searchTerm.length === 11 && /^[0-9]+$/.test(searchTerm); // Check if the search term is a CPF
+          searchTerm.length === 11 && /^[0-9]+$/.test(searchTerm) // Check if the search term is a CPF
 
         if (isCpfSearch) {
           // Check if the CPF maps to a name with pending vaccines
           const nomeCorrespondente = Object.keys(cpfMapping).find(
-            (key) => cpfMapping[key] === searchTerm,
-          );
+            (key) => cpfMapping[key] === searchTerm
+          )
           return (
             nomeCorrespondente !== undefined &&
             vaccineConditions[nomeCorrespondente] !== undefined
-          );
+          )
         } else {
           // For name searches, check if the searchTerm matches exactly with names in vaccineConditions
           return (
@@ -73,25 +73,25 @@ const Tags = ({
               return (
                 Object.keys(vaccineConditions).includes(person.nomeCidadao) &&
                 person.nomeCidadao.toLowerCase() === searchTerm.toLowerCase()
-              );
+              )
             })
-          );
+          )
         }
-      },
-    },
-  ];
+      }
+    }
+  ]
 
   const handleTagClick = (tag: string) => {
-    setSelectedTag(selectedTag === tag ? null : tag);
-  };
+    setSelectedTag(selectedTag === tag ? null : tag)
+  }
 
   const handleClose = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setSelectedTag(null);
-  };
+    e.stopPropagation()
+    setSelectedTag(null)
+  }
 
   const shouldRenderTags =
-    typeof searchTerm === "string" && searchTerm.trim() !== "";
+    typeof searchTerm === "string" && searchTerm.trim() !== ""
 
   return (
     <div className="p-4 border border-gray-300 rounded-lg shadow-md w-full max-w-xs ml-auto">
@@ -101,7 +101,7 @@ const Tags = ({
       <div className="flex flex-col items-center space-y-2 w-full">
         {shouldRenderTags &&
           tags.map(({ title, description, colorClass, condition }) => {
-            const isVisible = condition();
+            const isVisible = condition()
             return (
               isVisible && (
                 <div
@@ -130,11 +130,11 @@ const Tags = ({
                   )}
                 </div>
               )
-            );
+            )
           })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Tags;
+export default Tags

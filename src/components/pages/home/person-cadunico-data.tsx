@@ -1,39 +1,39 @@
-import React from "react";
+import React from "react"
 
 interface PessoaCadunico {
-  pessoaNome: string; // Nome da pessoa
-  pessoaCPF: string; // CPF da pessoa
-  pessoaNIS?: string; // Número do CadÚnico (opcional, se aplicável)
-  sexo: string; // Sexo
-  dataNascimento: string; // Data de nascimento
-  ufNascimento: string; // UF de nascimento
-  municipioNascimento: string; // Município de nascimento
-  situacaoRua: string; // Situação da rua (presumivelmente 0 ou 1)
-  local: string; // Local
-  rua: string; // Rua
-  numeroLogradouro: string; // Número do logradouro
-  mesesDesatualizacaoCadastro: string; // Meses de desatualização do cadastro
+  pessoaNome: string // Nome da pessoa
+  pessoaCPF: string // CPF da pessoa
+  pessoaNIS?: string // Número do CadÚnico (opcional, se aplicável)
+  sexo: string // Sexo
+  dataNascimento: string // Data de nascimento
+  ufNascimento: string // UF de nascimento
+  municipioNascimento: string // Município de nascimento
+  situacaoRua: string // Situação da rua (presumivelmente 0 ou 1)
+  local: string // Local
+  rua: string // Rua
+  numeroLogradouro: string // Número do logradouro
+  mesesDesatualizacaoCadastro: string // Meses de desatualização do cadastro
 }
 
 interface PersonCadunicoDataProps {
-  pessoasCadunico: PessoaCadunico[]; // Expecting an array of PessoaCadunico
-  searchTerm: string; // Accept search term as a prop
+  pessoasCadunico: PessoaCadunico[] // Expecting an array of PessoaCadunico
+  searchTerm: string // Accept search term as a prop
 }
 
 export function PersonCadunicoData({
   pessoasCadunico,
-  searchTerm,
+  searchTerm
 }: PersonCadunicoDataProps) {
   if (!pessoasCadunico || pessoasCadunico.length === 0) {
-    return <p>Nenhum dado do CADÚnico disponível.</p>;
+    return <p>Nenhum dado do CADÚnico disponível.</p>
   }
 
   // Filtra os dados com base no termo de busca
   const filteredData = pessoasCadunico.filter(
     (pessoa) =>
       pessoa.pessoaNome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pessoa.pessoaCPF.includes(searchTerm), // Também filtra por CPF
-  );
+      pessoa.pessoaCPF.includes(searchTerm) // Também filtra por CPF
+  )
 
   return (
     <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-300 bg-white shadow-lg min-w-[400px]">
@@ -118,5 +118,5 @@ export function PersonCadunicoData({
         </div>
       </div>
     </div>
-  );
+  )
 }

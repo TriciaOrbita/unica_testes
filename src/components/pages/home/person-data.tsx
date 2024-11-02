@@ -1,77 +1,77 @@
-import React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { PessoaSaude } from "@/service/queries/getPessoasSaude";
+import React from "react"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { PessoaSaude } from "@/service/queries/getPessoasSaude"
 
 interface PessoaCadunico {
-  avatar: string; // Campo de avatar
-  pessoaNome: string;
-  pessoaCPF: string; // CPF da pessoa
-  sexo: string; // Sexo
-  dataNascimento: string; // Data de nascimento
-  ufNascimento: string; // UF de nascimento
-  municipioNascimento: string; // Município de nascimento
-  local: string; // Local
-  rua: string; // Rua
-  numeroLogradouro: string; // Número do logradouro
+  avatar: string // Campo de avatar
+  pessoaNome: string
+  pessoaCPF: string // CPF da pessoa
+  sexo: string // Sexo
+  dataNascimento: string // Data de nascimento
+  ufNascimento: string // UF de nascimento
+  municipioNascimento: string // Município de nascimento
+  local: string // Local
+  rua: string // Rua
+  numeroLogradouro: string // Número do logradouro
 }
 
 interface PersonDataProps {
-  pessoasCadunico: PessoaCadunico[];
-  pessoasSaude: PessoaSaude[]; // Array de saúde
-  searchTerm: string; // Termo de pesquisa
+  pessoasCadunico: PessoaCadunico[]
+  pessoasSaude: PessoaSaude[] // Array de saúde
+  searchTerm: string // Termo de pesquisa
 }
 
 // Mapeamento de nomes para CPF
 const cpfMapping: { [key: string]: string } = {
   "HENRY GABRIEL DA SILVA FERREIRA": "10028205294",
-  "Hyrllen Batista Lisboa Furtado": "01809843227",
-};
+  "Hyrllen Batista Lisboa Furtado": "01809843227"
+}
 
 const sexMapping: { [key: string]: string } = {
   "HENRY GABRIEL DA SILVA FERREIRA": "Masculino",
-  "Hyrllen Batista Lisboa Furtado": "Feminino",
-};
+  "Hyrllen Batista Lisboa Furtado": "Feminino"
+}
 
 const dateMapping: { [key: string]: string } = {
   "HENRY GABRIEL DA SILVA FERREIRA": "19/11/2021",
-  "Hyrllen Batista Lisboa Furtado": "29/08/1999",
-};
+  "Hyrllen Batista Lisboa Furtado": "29/08/1999"
+}
 
 export function PersonData({
   pessoasCadunico,
   pessoasSaude,
-  searchTerm,
+  searchTerm
 }: PersonDataProps) {
   // Filtra os dados do CadÚnico com base no termo de busca
   const filteredCadunicoData = pessoasCadunico.filter(
     (pessoa) =>
       pessoa.pessoaNome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pessoa.pessoaCPF.includes(searchTerm), // Filtra pelo CPF também
-  );
+      pessoa.pessoaCPF.includes(searchTerm) // Filtra pelo CPF também
+  )
 
   // Garantindo que pessoasSaude seja um array, mesmo que indefinido
-  const safePessoasSaude = pessoasSaude || [];
+  const safePessoasSaude = pessoasSaude || []
 
   // Se não houver resultados no CadÚnico, filtra os dados de saúde
   const filteredHealthData =
     filteredCadunicoData.length === 0
       ? safePessoasSaude.filter((pessoa) => {
-          const cpf = cpfMapping[pessoa.nomeCidadao];
+          const cpf = cpfMapping[pessoa.nomeCidadao]
           return (
             pessoa.nomeCidadao
               .toLowerCase()
               .includes(searchTerm.toLowerCase()) ||
             (cpf && cpf.includes(searchTerm)) // Também filtra pelo CPF
-          );
+          )
         })
-      : []; // Se houver resultados no CadÚnico, não filtra por saúde
+      : [] // Se houver resultados no CadÚnico, não filtra por saúde
 
   // Combina os dados do CadÚnico e da saúde
   const combinedData =
-    filteredCadunicoData.length > 0 ? filteredCadunicoData : filteredHealthData;
+    filteredCadunicoData.length > 0 ? filteredCadunicoData : filteredHealthData
 
-  const hasResults = combinedData.length > 0 && searchTerm.trim() !== ""; // Check if there are results and if the search term is not empty
+  const hasResults = combinedData.length > 0 && searchTerm.trim() !== "" // Check if there are results and if the search term is not empty
 
   return (
     <ScrollArea className="h-full max-h-[45rem] w-[25rem] rounded-lg border border-neutral-300 bg-white">
@@ -90,8 +90,8 @@ export function PersonData({
                   }
                   alt="Avatar"
                   onError={(e) => {
-                    console.log("Erro ao carregar avatar, aplicando padrão");
-                    e.currentTarget.src = "public/images/20240324_174416.jpg"; // Caminho para um avatar padrão
+                    console.log("Erro ao carregar avatar, aplicando padrão")
+                    e.currentTarget.src = "public/images/20240324_174416.jpg" // Caminho para um avatar padrão
                   }}
                 />
                 <AvatarFallback>?</AvatarFallback>
@@ -111,9 +111,9 @@ export function PersonData({
               <dl className="divide-y divide-neutral-100">
                 {combinedData.map((pessoa) => {
                   // Recupera o CPF correspondente ao nome
-                  const cpf = cpfMapping[pessoa.nomeCidadao];
-                  const date = dateMapping[pessoa.nomeCidadao];
-                  const sex = sexMapping[pessoa.nomeCidadao];
+                  const cpf = cpfMapping[pessoa.nomeCidadao]
+                  const date = dateMapping[pessoa.nomeCidadao]
+                  const sex = sexMapping[pessoa.nomeCidadao]
 
                   return (
                     <div
@@ -149,7 +149,7 @@ export function PersonData({
                           : `${pessoa.logradouro || "Endereço não disponível"}, ${pessoa.numeroDomicilio || "Número não disponível"}, ${pessoa.bairroDomicilio || "Bairro não disponível"}`}
                       </dd>
                     </div>
-                  );
+                  )
                 })}
               </dl>
             </div>
@@ -159,5 +159,5 @@ export function PersonData({
         </div>
       </div>
     </ScrollArea>
-  );
+  )
 }

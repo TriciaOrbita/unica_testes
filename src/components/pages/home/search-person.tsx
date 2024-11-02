@@ -1,23 +1,23 @@
-import React from "react";
+import React from "react"
 
 type Person = {
-  nome: string;
-  cpf: string;
-  nomeCidadao?: string; // Propriedade opcional
-  coFatorCidadao?: string; // Propriedade opcional
+  nome: string
+  cpf: string
+  nomeCidadao?: string // Propriedade opcional
+  coFatorCidadao?: string // Propriedade opcional
   // adicione outras propriedades conforme necessário
-};
+}
 
 type SearchPersonProps = {
-  onSearch: (term: string) => void;
-  filteredResults: Person[];
-  onSelect: (pessoa: Person) => void; // Tipo atualizado
-};
+  onSearch: (term: string) => void
+  filteredResults: Person[]
+  onSelect: (pessoa: Person) => void // Tipo atualizado
+}
 
 export const SearchPerson: React.FC<SearchPersonProps> = ({
   onSearch,
   filteredResults,
-  onSelect,
+  onSelect
 }) => {
   return (
     <div>
@@ -34,5 +34,5 @@ export const SearchPerson: React.FC<SearchPersonProps> = ({
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}

@@ -1,30 +1,30 @@
-import { usePessoasEscola } from "@/service/queries/getPessoasEscola";
-import { usePessoasSaude } from "@/service/queries/getPessoasSaude";
-import { usePessoas } from "@/service/queries/getPessoas";
-import { PersonHealthData } from "@/components/pages/home/person-health-data";
-import { PersonSchoolData } from "@/components/pages/home/person-school-data";
-import { PersonCadunicoData } from "@/components/pages/home/person-cadunico-data";
-import { PersonData } from "@/components/pages/home/person-data";
-import Tags from "@/components/pages/home/Tags";
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import SearchInput from "@/components/pages/home/SearchInput";
-import React, { useState } from "react";
+import { usePessoasEscola } from "@/service/queries/getPessoasEscola"
+import { usePessoasSaude } from "@/service/queries/getPessoasSaude"
+import { usePessoas } from "@/service/queries/getPessoas"
+import { PersonHealthData } from "@/components/pages/home/person-health-data"
+import { PersonSchoolData } from "@/components/pages/home/person-school-data"
+import { PersonCadunicoData } from "@/components/pages/home/person-cadunico-data"
+import { PersonData } from "@/components/pages/home/person-data"
+import Tags from "@/components/pages/home/Tags"
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react"
+import SearchInput from "@/components/pages/home/SearchInput"
+import React, { useState } from "react"
 import {
   Bars3Icon,
   ExclamationTriangleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import Image from "next/image";
+  XMarkIcon
+} from "@heroicons/react/24/outline"
+import Image from "next/image"
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const { data: pessoas, error: errorPessoa } = usePessoas();
-  const { data: pessoasEscola, error: errorEscola } = usePessoasEscola();
-  const { data: pessoasSaude, error: errorSaude } = usePessoasSaude();
-  const { data: pessoasCadunico, error: errorCadunico } = usePessoas();
+  const [searchTerm, setSearchTerm] = useState("")
+  const { data: pessoas, error: errorPessoa } = usePessoas()
+  const { data: pessoasEscola, error: errorEscola } = usePessoasEscola()
+  const { data: pessoasSaude, error: errorSaude } = usePessoasSaude()
+  const { data: pessoasCadunico, error: errorCadunico } = usePessoas()
 
   // Aqui, usaremos o primeiro elemento do array `pessoas` como exemplo.
-  const pessoa = pessoas?.[0];
+  const pessoa = pessoas?.[0]
 
   if (errorEscola || errorPessoa || errorSaude || errorCadunico) {
     return (
@@ -34,7 +34,7 @@ export default function Home() {
           de dados.
         </h2>
       </div>
-    );
+    )
   }
 
   return (
@@ -160,5 +160,5 @@ export default function Home() {
         </h2>
       </footer>
     </div>
-  );
+  )
 }

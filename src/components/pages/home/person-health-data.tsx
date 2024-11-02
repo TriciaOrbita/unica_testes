@@ -1,41 +1,41 @@
-import React from "react";
-import { PessoaSaude } from "@/service/queries/getPessoasSaude";
+import React from "react"
+import { PessoaSaude } from "@/service/queries/getPessoasSaude"
 
 interface PersonHealthDataProps {
-  pessoasSaude: PessoaSaude[]; // Array de dados de saúde de cada pessoa
-  searchTerm: string; // Termo de busca fornecido pelo usuário
+  pessoasSaude: PessoaSaude[] // Array de dados de saúde de cada pessoa
+  searchTerm: string // Termo de busca fornecido pelo usuário
 }
 
 // Mapeamento de nomes para CPF
 const cpfMapping: { [key: string]: string } = {
   "Lara Souza da Trindade": "09579794286",
   "HENRY GABRIEL DA SILVA FERREIRA": "10028205294",
-  "Hyrllen Batista Lisboa Furtado": "01809843227",
-};
+  "Hyrllen Batista Lisboa Furtado": "01809843227"
+}
 
 export function PersonHealthData({
   pessoasSaude,
-  searchTerm,
+  searchTerm
 }: PersonHealthDataProps) {
   if (!pessoasSaude || pessoasSaude.length === 0) {
-    return <p>Nenhum dado de saúde disponível.</p>;
+    return <p>Nenhum dado de saúde disponível.</p>
   }
 
   // Filtra os dados com base no termo de busca
   const filteredData = pessoasSaude.filter((pessoa) => {
-    const cpf = cpfMapping[pessoa.nomeCidadao];
+    const cpf = cpfMapping[pessoa.nomeCidadao]
     return (
       pessoa.nomeCidadao.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (cpf && cpf.includes(searchTerm))
-    );
-  });
+    )
+  })
 
   // Usa um Set para garantir que os dados exibidos são únicos, com base em coFatorCidadao
   const uniqueData: PessoaSaude[] = Array.from(
     new Map(
-      filteredData.map((pessoa) => [pessoa.coFatorCidadao, pessoa]),
-    ).values(),
-  );
+      filteredData.map((pessoa) => [pessoa.coFatorCidadao, pessoa])
+    ).values()
+  )
 
   return (
     <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-300 bg-white shadow-lg min-w-[400px]">
@@ -47,16 +47,16 @@ export function PersonHealthData({
           const healthCondition =
             pessoa.nomeCidadao === "HENRY GABRIEL DA SILVA FERREIRA"
               ? "CID J45 - Asma"
-              : pessoa.condicaoSaude;
+              : pessoa.condicaoSaude
 
           const vacinaPendente =
             pessoa.nomeCidadao === "HENRY GABRIEL DA SILVA FERREIRA"
               ? "Vacina contra a Gripe"
               : pessoa.nomeCidadao === "Lara Souza da Trindade"
                 ? "Vacina contra a Catapora"
-                : undefined;
+                : undefined
 
-          const cpf = cpfMapping[pessoa.nomeCidadao];
+          const cpf = cpfMapping[pessoa.nomeCidadao]
 
           return (
             <div
@@ -138,11 +138,11 @@ export function PersonHealthData({
                 </div>
               </div>
             </div>
-          );
+          )
         })
       ) : (
         <p>Nenhum resultado encontrado.</p> // Mensagem caso não haja resultados correspondentes
       )}
     </div>
-  );
+  )
 }
