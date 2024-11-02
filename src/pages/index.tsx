@@ -1,11 +1,39 @@
 import { OtherData } from '@/components/pages/home/other-data'
 import { PersonData } from '@/components/pages/home/person-data'
 import { SearchPerson } from '@/components/pages/home/search-person'
+import { Container } from '@/components/ui/container'
+import { usePessoas } from '@/service/queries/getPessoas'
+import { usePessoasEscola } from '@/service/queries/getPessoasEscola'
+import { usePessoasSaude } from '@/service/queries/getPessoasSaude'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import {
+  Bars3Icon,
+  ExclamationTriangleIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline'
 import Image from 'next/image'
 
 export default function Home() {
+  const { data: pessoasEscola, error: errorEscola } = usePessoasEscola()
+  console.log(pessoasEscola)
+
+  const { data: pessoas, error: errorPessoa } = usePessoas()
+  console.log(pessoas)
+
+  const { data: pessoasSaude, error: errorSaude } = usePessoasSaude()
+  console.log(pessoasSaude)
+
+  if (errorEscola || errorPessoa || errorSaude) {
+    return (
+      <Container className="flex min-h-screen items-center justify-center">
+        <h2 className="flex items-center gap-2 text-red-600">
+          <ExclamationTriangleIcon className="h-5 w-5" /> Erro ao acessar a base
+          de dados.
+        </h2>
+      </Container>
+    )
+  }
+
   return (
     <div className="relative overflow-hidden">
       <Popover
