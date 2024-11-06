@@ -127,7 +127,7 @@ export function PersonHealthData({
                     <span className="text-neutral-600">{vacinaPendente}</span>
                   </div>
                 )}
-                <div className="flex flex-col">
+                <div className="flex flex-col" style={{ visibility: "hidden" }}>
                   <span className="text-neutral-800 font-semibold">CPF:</span>
                   <span className="text-neutral-600">
                     {cpf || "CPF não disponível"}
