@@ -185,8 +185,11 @@ export function PersonData({
                           Endereço
                         </dt>
                         <dd className="text-neutral-700 text-center">
-                          {pessoa.rua
-                            ? `${pessoa.rua}, ${pessoa.numeroLogradouro}, ${pessoa.local}`
+                          {pessoa.rua ||
+                          pessoa.tipoLogradouro ||
+                          pessoa.logradouro ||
+                          pessoa.numeroDomicilio
+                            ? `${pessoa.tipoLogradouro}, ${pessoa.logradouro}, ${pessoa.numeroDomicilio}`
                             : "Endereço não disponível"}
                         </dd>
                       </div>
