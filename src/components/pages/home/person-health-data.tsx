@@ -2,11 +2,10 @@ import React from "react"
 import { PessoaSaude } from "@/service/queries/getPessoasSaude"
 
 interface PersonHealthDataProps {
-  pessoasSaude: PessoaSaude[] // Array de dados de saúde de cada pessoa
-  searchTerm: string // Termo de busca fornecido pelo usuário
+  pessoasSaude: PessoaSaude[]
+  searchTerm: string
 }
 
-// Mapeamento de nomes para CPF
 const cpfMapping: { [key: string]: string } = {
   "Lara Souza da Trindade": "09579794286",
   "HENRY GABRIEL DA SILVA FERREIRA": "10028205294",
@@ -18,10 +17,13 @@ export function PersonHealthData({
   searchTerm
 }: PersonHealthDataProps) {
   if (!pessoasSaude || pessoasSaude.length === 0) {
-    return <p>Nenhum dado de saúde disponível.</p>
+    return (
+      <p className="text-neutral-600 italic">
+        Nenhum dado de saúde disponível.
+      </p>
+    )
   }
 
-  // Filtra os dados com base no termo de busca
   const filteredData = pessoasSaude.filter((pessoa) => {
     const cpf = cpfMapping[pessoa.nomeCidadao]
     return (
@@ -30,7 +32,6 @@ export function PersonHealthData({
     )
   })
 
-  // Usa um Set para garantir que os dados exibidos são únicos, com base em coFatorCidadao
   const uniqueData: PessoaSaude[] = Array.from(
     new Map(
       filteredData.map((pessoa) => [pessoa.coFatorCidadao, pessoa])
@@ -38,9 +39,9 @@ export function PersonHealthData({
   )
 
   return (
-    <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-300 bg-white shadow-lg min-w-[400px]">
-      <h2 className="text-xl font-semibold text-neutral-800 mb-4">
-        DADOS DE SAÚDE
+    <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
+      <h2 className="text-2xl font-bold text-blue-800 mb-6 border-b border-neutral-300 pb-2">
+        Dados de Saúde
       </h2>
       {uniqueData.length > 0 ? (
         uniqueData.map((pessoa: PessoaSaude) => {
@@ -61,87 +62,83 @@ export function PersonHealthData({
           return (
             <div
               key={pessoa.coFatorCidadao}
-              className="grid grid-cols-2 gap-6 mb-4 border-b border-neutral-200 pb-4"
+              className="grid grid-cols-2 gap-6 mb-6 p-4 rounded-lg bg-white shadow-sm border border-neutral-200"
             >
-              <div className="flex flex-col">
-                <div className="mb-2 p-4 border border-neutral-300 rounded-lg shadow-sm">
-                  <p className="text-md font-medium text-neutral-800">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col">
+                  <span className="text-neutral-800 font-semibold">
                     Última Atualização:
-                  </p>
-                  <p className="text-md text-neutral-600">
+                  </span>
+                  <span className="text-neutral-600">
                     {pessoa.ultimaAtualizacao}
-                  </p>
+                  </span>
                 </div>
-                <div className="mb-2 p-4 border border-neutral-300 rounded-lg shadow-sm">
-                  <p className="text-md font-medium text-neutral-800">
+                <div className="flex flex-col">
+                  <span className="text-neutral-800 font-semibold">
                     Unidade de Saúde:
-                  </p>
-                  <p className="text-md text-neutral-600">
+                  </span>
+                  <span className="text-neutral-600">
                     {pessoa.unidadeSaude}
-                  </p>
+                  </span>
                 </div>
-                <div className="mb-2 p-4 border border-neutral-300 rounded-lg shadow-sm">
-                  <p className="text-md font-medium text-neutral-800">
+                <div className="flex flex-col">
+                  <span className="text-neutral-800 font-semibold">
                     Última Consulta:
-                  </p>
-                  <p className="text-md text-neutral-600">
+                  </span>
+                  <span className="text-neutral-600">
                     {pessoa.ultimaConsultaFormatada}
-                  </p>
+                  </span>
                 </div>
-                <div className="mb-2 p-4 border border-neutral-300 rounded-lg shadow-sm">
-                  <p className="text-md font-medium text-neutral-800">
+                <div className="flex flex-col">
+                  <span className="text-neutral-800 font-semibold">
                     Última Visita Domiciliar:
-                  </p>
-                  <p className="text-md text-neutral-600">
+                  </span>
+                  <span className="text-neutral-600">
                     {pessoa.ultimaVisitaDomiciliarFormatada}
-                  </p>
+                  </span>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <div className="mb-2 p-4 border border-neutral-300 rounded-lg shadow-sm">
-                  <p className="text-md font-medium text-neutral-800">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col">
+                  <span className="text-neutral-800 font-semibold">
                     Condição de Saúde:
-                  </p>
-                  <p className="text-md text-neutral-600">
+                  </span>
+                  <span className="text-neutral-600">
                     {pessoa.deficiencia === "0" &&
                     pessoa.diabetes === "0" &&
                     pessoa.hipertensaoArterial === "0"
                       ? "Não possui nenhum problema de saúde."
                       : "Possui alguns problemas de saúde."}
-                  </p>
+                  </span>
                 </div>
                 {healthCondition && (
-                  <div className="mb-2 p-4 border border-neutral-300 rounded-lg shadow-sm">
-                    <p className="text-md font-medium text-neutral-800">
+                  <div className="flex flex-col">
+                    <span className="text-neutral-800 font-semibold">
                       Condição de Saúde:
-                    </p>
-                    <p className="text-md text-neutral-600">
-                      {healthCondition}
-                    </p>
+                    </span>
+                    <span className="text-neutral-600">{healthCondition}</span>
                   </div>
                 )}
                 {vacinaPendente && (
-                  <div className="mb-2 p-4 border border-neutral-300 rounded-lg shadow-sm">
-                    <p className="text-md font-medium text-neutral-800">
+                  <div className="flex flex-col">
+                    <span className="text-neutral-800 font-semibold">
                       Vacina Pendente:
-                    </p>
-                    <p className="text-md text-neutral-600">{vacinaPendente}</p>
+                    </span>
+                    <span className="text-neutral-600">{vacinaPendente}</span>
                   </div>
                 )}
-                <div className="flex justify-between items-center">
-                  <p className="text-xs" style={{ visibility: "hidden" }}>
-                    Nome: {pessoa.nomeCidadao || "Nome não disponível"}
-                  </p>
-                  <p className="text-xs" style={{ visibility: "hidden" }}>
-                    CPF: {cpf || "CPF não disponível"}
-                  </p>
+                <div className="flex flex-col">
+                  <span className="text-neutral-800 font-semibold">CPF:</span>
+                  <span className="text-neutral-600">
+                    {cpf || "CPF não disponível"}
+                  </span>
                 </div>
               </div>
             </div>
           )
         })
       ) : (
-        <p>Nenhum resultado encontrado.</p> // Mensagem caso não haja resultados correspondentes
+        <p className="text-neutral-500 italic">Nenhum resultado encontrado.</p>
       )}
     </div>
   )

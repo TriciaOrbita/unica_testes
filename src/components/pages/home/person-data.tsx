@@ -4,38 +4,80 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { PessoaSaude } from "@/service/queries/getPessoasSaude"
 
 interface PessoaCadunico {
-  avatar: string // Campo de avatar
+  avatar: string
   pessoaNome: string
-  pessoaCPF: string // CPF da pessoa
-  sexo: string // Sexo
-  dataNascimento: string // Data de nascimento
-  ufNascimento: string // UF de nascimento
-  municipioNascimento: string // Município de nascimento
-  local: string // Local
-  rua: string // Rua
-  numeroLogradouro: string // Número do logradouro
+  pessoaCPF: string
+  sexo: string
+  dataNascimento: string
+  ufNascimento: string
+  municipioNascimento: string
+  local: string
+  rua: string
+  numeroLogradouro: string
 }
 
 interface PersonDataProps {
   pessoasCadunico: PessoaCadunico[]
-  pessoasSaude: PessoaSaude[] // Array de saúde
-  searchTerm: string // Termo de pesquisa
+  pessoasSaude: PessoaSaude[]
+  searchTerm: string
 }
 
-// Mapeamento de nomes para CPF
 const cpfMapping: { [key: string]: string } = {
   "HENRY GABRIEL DA SILVA FERREIRA": "10028205294",
-  "Hyrllen Batista Lisboa Furtado": "01809843227"
+  "Hyrllen Batista Lisboa Furtado": "01809843227",
+  "LARA SOUZA DA TRINDADE": "12345678901",
+  "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": "10987654321"
 }
 
 const sexMapping: { [key: string]: string } = {
   "HENRY GABRIEL DA SILVA FERREIRA": "Masculino",
-  "Hyrllen Batista Lisboa Furtado": "Feminino"
+  "Hyrllen Batista Lisboa Furtado": "Feminino",
+  "LARA SOUZA DA TRINDADE": "Feminino",
+  "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": "Masculino"
 }
 
 const dateMapping: { [key: string]: string } = {
   "HENRY GABRIEL DA SILVA FERREIRA": "19/11/2021",
-  "Hyrllen Batista Lisboa Furtado": "29/08/1999"
+  "Hyrllen Batista Lisboa Furtado": "29/08/1999",
+  "LARA SOUZA DA TRINDADE": "10/05/1995",
+  "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": "15/12/1990"
+}
+
+const activityMapping: { [key: string]: { activity: string; date: string }[] } =
+  {
+    "HENRY GABRIEL DA SILVA FERREIRA": [
+      { activity: "Vacinação Realizada", date: "2024-11-01" },
+      { activity: "Consulta Médica Agendada", date: "2024-11-02" },
+      { activity: "Exame de Rotina Realizado", date: "2024-11-03" }
+    ],
+    "Hyrllen Batista Lisboa Furtado": [
+      { activity: "Vacinação Realizada", date: "2024-10-20" },
+      { activity: "Consulta Médica Não Compareceu", date: "2024-10-25" },
+      { activity: "Exame de Rotina Realizado", date: "2024-09-15" }
+    ],
+    "LARA SOUZA DA TRINDADE": [
+      { activity: "Vacinação Realizada", date: "2024-08-10" },
+      { activity: "Consulta Médica Agendada", date: "2024-09-12" },
+      { activity: "Exame de Rotina Realizado", date: "2024-09-05" }
+    ],
+    "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": [
+      { activity: "Vacinação Não Realizada", date: "2024-06-15" },
+      { activity: "Consulta Médica Agendada", date: "2024-07-02" },
+      { activity: "Exame de Rotina Realizado", date: "2024-07-10" }
+    ],
+    "EMERSON ELVES MATOS ALBUQUERQUE": [
+      { activity: "Vacinação Realizada", date: "2024-10-20" },
+      { activity: "Consulta Médica Não Compareceu", date: "2024-11-01" },
+      { activity: "Exame de Rotina Realizado", date: "2024-11-15" }
+    ]
+  }
+
+const formatDate = (date: string) => {
+  const [year, month, day] = date.split("-").map(Number)
+  const formattedDate = new Date(year, month - 1, day).toLocaleDateString(
+    "pt-BR"
+  )
+  return formattedDate
 }
 
 export function PersonData({
@@ -43,17 +85,13 @@ export function PersonData({
   pessoasSaude,
   searchTerm
 }: PersonDataProps) {
-  // Filtra os dados do CadÚnico com base no termo de busca
   const filteredCadunicoData = pessoasCadunico.filter(
     (pessoa) =>
       pessoa.pessoaNome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pessoa.pessoaCPF.includes(searchTerm) // Filtra pelo CPF também
+      pessoa.pessoaCPF.includes(searchTerm)
   )
 
-  // Garantindo que pessoasSaude seja um array, mesmo que indefinido
   const safePessoasSaude = pessoasSaude || []
-
-  // Se não houver resultados no CadÚnico, filtra os dados de saúde
   const filteredHealthData =
     filteredCadunicoData.length === 0
       ? safePessoasSaude.filter((pessoa) => {
@@ -62,101 +100,140 @@ export function PersonData({
             pessoa.nomeCidadao
               .toLowerCase()
               .includes(searchTerm.toLowerCase()) ||
-            (cpf && cpf.includes(searchTerm)) // Também filtra pelo CPF
+            (cpf && cpf.includes(searchTerm))
           )
         })
-      : [] // Se houver resultados no CadÚnico, não filtra por saúde
-
-  // Combina os dados do CadÚnico e da saúde
+      : []
   const combinedData =
     filteredCadunicoData.length > 0 ? filteredCadunicoData : filteredHealthData
+  const hasResults = combinedData.length > 0 && searchTerm.trim() !== ""
 
-  const hasResults = combinedData.length > 0 && searchTerm.trim() !== "" // Check if there are results and if the search term is not empty
+  const getCardColor = (activity: string) => {
+    if (activity.includes("Vacinação")) return "bg-blue-100 text-blue-800" // Azul claro
+    if (activity.includes("Consulta")) return "bg-green-100 text-green-800" // Verde claro
+    if (activity.includes("Exame")) return "bg-yellow-100 text-yellow-800" // Amarelo claro
+    return "bg-gray-100 text-gray-800" // Cor padrão
+  }
 
   return (
-    <ScrollArea className="h-full max-h-[45rem] w-[25rem] rounded-lg border border-neutral-300 bg-white">
-      <div className="relative">
-        {/* Render only if there are results and search term is not empty */}
+    <ScrollArea className="h-full w-full rounded-lg border border-neutral-300 bg-white shadow-lg">
+      <div className="relative flex flex-col items-center w-full">
         {hasResults && (
-          <div className="sticky top-0 z-10 flex w-[25rem] items-center justify-between rounded-t-lg bg-neutral-100 py-2.5 pl-5 pr-4 text-neutral-800">
-            <div className="flex items-center gap-6 h-36">
-              <Avatar>
-                <AvatarImage
-                  src={
-                    combinedData[0].nomeCidadao ===
-                    "Hyrllen Batista Lisboa Furtado"
-                      ? "https://lh3.googleusercontent.com/chat_attachment/AP1Ws4tdTJK0uejONebm9Fuvoigaj4EuKrEtXZqOKfUGpiniIspjB7Fuv-GaKQkVxnjTP0kcyfpCzHD-JbVDckL5wH_FR3rHbGuVi2s6WyVqsaUtR5h3gEb3iPZzbfc2Qyq9i1Tha-klroqMkx2UdXpKgB-CK0bN_sN77fIJ4H26dtw9fGm_wfileIwndhikEVshwNeINMcpQbOZwdrhdKqT1hldVQue9BLT_M8b7Um-dwuRw5yRvzHqT-CsxbX1jFhfSfs1IuIDcgE5JwH_0LIWE1_Zt0TWV5TPBnwP-yf377_G_LZ1kTHS0DI61_eB8DyCi4s=w1920-h991"
-                      : combinedData[0].avatar // Use o avatar da base de dados ou vazio
-                  }
-                  alt="Avatar"
-                  onError={(e) => {
-                    console.log("Erro ao carregar avatar, aplicando padrão")
-                    e.currentTarget.src = "public/images/20240324_174416.jpg" // Caminho para um avatar padrão
-                  }}
-                />
-                <AvatarFallback>?</AvatarFallback>
-              </Avatar>
-
-              <h2 className="font-medium">
-                {combinedData[0].pessoaNome ||
-                  combinedData[0].nomeCidadao ||
-                  "Nome do Cidadão"}
-              </h2>
-            </div>
+          <div className="flex flex-col items-center justify-center py-6 bg-neutral-100 w-full rounded-t-lg shadow-md">
+            <Avatar className="w-40 h-40">
+              <AvatarImage
+                src={
+                  combinedData[0].nomeCidadao ===
+                  "Hyrllen Batista Lisboa Furtado"
+                    ? "https://example.com/avatar-image.png"
+                    : combinedData[0].avatar
+                }
+                alt="Avatar"
+                onError={(e) => {
+                  e.currentTarget.src = "/images/default-avatar.jpg"
+                }}
+              />
+              <AvatarFallback>?</AvatarFallback>
+            </Avatar>
+            <h2 className="font-medium">
+              {combinedData[0].pessoaNome ||
+                combinedData[0].nomeCidadao ||
+                "Nome do Cidadão"}
+            </h2>
           </div>
         )}
-        <div className="flex flex-col gap-4 p-4">
+        <div className="w-full px-6 py-8">
           {searchTerm && hasResults ? (
-            <div className="mt-0 border-t border-neutral-100">
-              <dl className="divide-y divide-neutral-100">
+            <div className="w-full space-y-6">
+              <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 w-full">
                 {combinedData.map((pessoa) => {
-                  // Recupera o CPF correspondente ao nome
                   const cpf = cpfMapping[pessoa.nomeCidadao]
                   const date = dateMapping[pessoa.nomeCidadao]
                   const sex = sexMapping[pessoa.nomeCidadao]
+                  // const activities = activityMapping[pessoa.nomeCidadao] || []
 
                   return (
                     <div
                       key={pessoa.coFatorCidadao || pessoa.pessoaNome}
-                      className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+                      className="w-full space-y-6 p-6 rounded-lg border border-neutral-200"
                     >
-                      <dt className="text-sm/6 font-medium text-neutral-900">
-                        CPF
-                      </dt>
-                      <dd className="mt-1 text-sm/6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                        <p>
-                          {pessoa.pessoaCPF} {cpf}
-                        </p>
-                      </dd>
-                      <dt className="text-sm/6 font-medium text-neutral-900">
-                        Data de Nasc.
-                      </dt>
-                      <dd className="mt-1 text-sm/6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                        {pessoa.dataNascimento} {date}
-                      </dd>
-                      <dt className="text-sm/6 font-medium text-neutral-900">
-                        Sexo
-                      </dt>
-                      <dd className="mt-1 text-sm/6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                        {pessoa.sexo} {sex}
-                      </dd>
-                      <dt className="text-sm/6 font-medium text-neutral-900">
-                        Endereço
-                      </dt>
-                      <dd className="mt-1 text-sm/6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                        {pessoa.pessoaCPF
-                          ? `${pessoa.rua}, ${pessoa.numeroLogradouro}, ${pessoa.local}`
-                          : `${pessoa.logradouro || "Rua Miranda"}, ${pessoa.numeroDomicilio || "Número não disponível"}, ${pessoa.bairroDomicilio || "Bairro não disponível"}`}
-                      </dd>
+                      <div className="flex justify-between items-center text-lg">
+                        <dt className="font-medium text-neutral-900">CPF</dt>
+                        <dd className="text-neutral-700 text-center">
+                          {pessoa.pessoaCPF || cpf}
+                        </dd>
+                      </div>
+
+                      <div className="flex justify-between items-center text-lg">
+                        <dt className="font-medium text-neutral-900">
+                          Data de Nasc.
+                        </dt>
+                        <dd className="text-neutral-700 text-center">
+                          {pessoa.dataNascimento || date}
+                        </dd>
+                      </div>
+
+                      <div className="flex justify-between items-center text-lg">
+                        <dt className="font-medium text-neutral-900">Sexo</dt>
+                        <dd className="text-neutral-700 text-center">
+                          {pessoa.sexo || sex}
+                        </dd>
+                      </div>
+
+                      <div className="flex justify-between items-center text-lg">
+                        <dt className="font-medium text-neutral-900">
+                          Endereço
+                        </dt>
+                        <dd className="text-neutral-700 text-center">
+                          {pessoa.rua
+                            ? `${pessoa.rua}, ${pessoa.numeroLogradouro}, ${pessoa.local}`
+                            : "Endereço não disponível"}
+                        </dd>
+                      </div>
                     </div>
                   )
                 })}
               </dl>
             </div>
           ) : (
-            searchTerm && <p>Nenhum resultado encontrado.</p> // Mensagem caso não haja resultados correspondentes
+            searchTerm && (
+              <p className="text-neutral-600">Nenhum resultado encontrado.</p>
+            )
           )}
         </div>
+
+        {hasResults && (
+          <div className="w-full p-6 mt-6 bg-neutral-50 border-t-2 border-neutral-200 rounded-lg shadow-sm">
+            <h3 className="text-xl font-semibold text-neutral-700 mb-4">
+              Histórico de Atividades
+            </h3>
+            {combinedData.map((pessoa) => {
+              const activities = activityMapping[pessoa.nomeCidadao] || []
+              return (
+                <div
+                  key={pessoa.coFatorCidadao || pessoa.pessoaNome}
+                  className="space-y-4"
+                >
+                  {activities.map((activity, index) => (
+                    <div
+                      key={index}
+                      className={`p-4 rounded-md ${getCardColor(activity.activity)}`}
+                    >
+                      <p className="font-medium">{activity.activity}</p>
+                      <p className="text-sm">{formatDate(activity.date)}</p>
+                      {pessoa.unidadeSaude && (
+                        <p className="text-sm font-medium text-neutral-600">
+                          Unidade de Saúde:{" "}
+                          {pessoa.unidadeSaude || "Não foi informado"}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     </ScrollArea>
   )
