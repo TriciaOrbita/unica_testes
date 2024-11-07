@@ -21,8 +21,8 @@ interface PessoaEscola {
 }
 
 interface PersonSchoolDataProps {
-  pessoasEscola: PessoaEscola[] // Expecting an array of PessoaEscola
-  searchTerm: string // Accept search term as a prop
+  pessoasEscola: PessoaEscola[]
+  searchTerm: string
 }
 
 export function PersonSchoolData({
@@ -35,27 +35,26 @@ export function PersonSchoolData({
     )
   }
 
-  // Filter data based on the search term
   const filteredData = pessoasEscola.filter(
     (pessoa) =>
       pessoa.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pessoa.cpf.includes(searchTerm) // Also filter by CPF
+      pessoa.cpf.includes(searchTerm)
   )
 
   return (
-    <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
-      <h2 className="text-2xl font-bold text-blue-800 mb-6 border-b border-neutral-300 pb-2">
+    <div className="w-full max-w-[90rem] mx-auto p-6 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
+      <h2 className="text-xl font-bold text-blue-800 mb-4 border-b border-neutral-300 pb-1">
         Dados Escolares
       </h2>
       {filteredData.length > 0 ? (
         filteredData.map((pessoa: PessoaEscola) => (
           <div
             key={pessoa.cpf}
-            className="grid grid-cols-2 gap-6 mb-6 p-4 rounded-lg bg-white shadow-sm border border-neutral-200"
+            className="grid grid-cols-2 gap-4 mb-4 p-3 rounded-lg bg-white shadow-sm border border-neutral-200 text-sm"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-semibold">
+                <span className="text-neutral-800 font-medium">
                   Última Atualização:
                 </span>
                 <span className="text-neutral-600">
@@ -63,37 +62,33 @@ export function PersonSchoolData({
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-semibold">
-                  Nome da Escola:
-                </span>
+                <span className="text-neutral-800 font-medium">Escola:</span>
                 <span className="text-neutral-600">
                   {pessoa.nomeEscola || "Nome não disponível"}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-semibold">Turma:</span>
+                <span className="text-neutral-800 font-medium">Turma:</span>
                 <span className="text-neutral-600">
                   {pessoa.turma || "Turma não disponível"}
                 </span>
               </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-semibold">
-                  Situação:
-                </span>
+                <span className="text-neutral-800 font-medium">Situação:</span>
                 <span className="text-neutral-600">
                   {pessoa.situacao || "Situação não disponível"}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-semibold">PCD:</span>
+                <span className="text-neutral-800 font-medium">PCD:</span>
                 <span className="text-neutral-600">
                   {pessoa.pcd || "Não disponível"}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-semibold">
+                <span className="text-neutral-800 font-medium">
                   Filiação 1:
                 </span>
                 <span className="text-neutral-600">
@@ -101,7 +96,7 @@ export function PersonSchoolData({
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-semibold">
+                <span className="text-neutral-800 font-medium">
                   Filiação 2:
                 </span>
                 <span className="text-neutral-600">
@@ -117,7 +112,7 @@ export function PersonSchoolData({
           </div>
         ))
       ) : (
-        <p className="text-neutral-500 italic">Nenhum resultado encontrado.</p> // Message if no results match
+        <p className="text-neutral-500 italic">Nenhum resultado encontrado.</p>
       )}
     </div>
   )

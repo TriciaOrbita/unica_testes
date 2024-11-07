@@ -39,8 +39,8 @@ export function PersonCadunicoData({
   )
 
   return (
-    <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
-      <h2 className="text-2xl font-bold text-blue-800 mb-6 border-b border-neutral-300 pb-2">
+    <div className="w-full max-w-[90rem] mx-auto p-6 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
+      <h2 className="text-xl font-bold text-blue-800 mb-4 border-b border-neutral-300 pb-1">
         Dados do CadÚnico
       </h2>
       <div>
@@ -48,17 +48,17 @@ export function PersonCadunicoData({
           filteredData.map((pessoa: PessoaCadunico) => (
             <div
               key={pessoa.pessoaCPF}
-              className="grid grid-cols-2 gap-6 mb-6 p-4 rounded-lg bg-white shadow-sm border border-neutral-200"
+              className="grid grid-cols-2 gap-4 mb-4 p-3 rounded-lg bg-white shadow-sm border border-neutral-200 text-sm"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 <div className="flex flex-col">
-                  <span className="text-neutral-800 font-semibold">Nome:</span>
+                  <span className="text-neutral-800 font-medium">Nome:</span>
                   <span className="text-neutral-600">
                     {pessoa.pessoaNome || "Nome não disponível"}
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-neutral-800 font-semibold">
+                  <span className="text-neutral-800 font-medium">
                     Data de Nascimento:
                   </span>
                   <span className="text-neutral-600">
@@ -66,11 +66,11 @@ export function PersonCadunicoData({
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-neutral-800 font-semibold">Sexo:</span>
+                  <span className="text-neutral-800 font-medium">Sexo:</span>
                   <span className="text-neutral-600">{pessoa.sexo}</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-neutral-800 font-semibold">
+                  <span className="text-neutral-800 font-medium">
                     Situação de Rua:
                   </span>
                   <span className="text-neutral-600">
@@ -80,16 +80,16 @@ export function PersonCadunicoData({
                   </span>
                 </div>
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 {pessoa.pessoaNIS && (
                   <div className="flex flex-col">
-                    <span className="text-neutral-800 font-semibold">NIS:</span>
+                    <span className="text-neutral-800 font-medium">NIS:</span>
                     <span className="text-neutral-600">{pessoa.pessoaNIS}</span>
                   </div>
                 )}
                 {pessoa.mesesDesatualizacaoCadastro && (
                   <div className="flex flex-col">
-                    <span className="text-neutral-800 font-semibold">
+                    <span className="text-neutral-800 font-medium">
                       Meses de Desatualização do Cadastro:
                     </span>
                     <span className="text-neutral-600">
@@ -98,7 +98,7 @@ export function PersonCadunicoData({
                   </div>
                 )}
                 <div className="flex flex-col">
-                  <span className="text-neutral-800 font-semibold">CPF:</span>
+                  <span className="text-neutral-800 font-medium">CPF:</span>
                   <span className="text-neutral-600">
                     {pessoa.pessoaCPF || "CPF não disponível"}
                   </span>

@@ -17,11 +17,7 @@ export function PersonHealthData({
   searchTerm
 }: PersonHealthDataProps) {
   if (!pessoasSaude || pessoasSaude.length === 0) {
-    return (
-      <p className="text-neutral-600 italic">
-        Nenhum dado de saúde disponível.
-      </p>
-    )
+    return <p className="text-neutral-600 italic">Nenhum dado disponível.</p>
   }
 
   const filteredData = pessoasSaude.filter((pessoa) => {
@@ -39,8 +35,8 @@ export function PersonHealthData({
   )
 
   return (
-    <div className="w-full max-w-[90rem] mx-auto p-8 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
-      <h2 className="text-2xl font-bold text-blue-800 mb-6 border-b border-neutral-300 pb-2">
+    <div className="w-full max-w-[90rem] mx-auto p-6 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
+      <h2 className="text-xl font-bold text-blue-800 mb-4 border-b border-neutral-300 pb-1">
         Dados de Saúde
       </h2>
       {uniqueData.length > 0 ? (
@@ -52,9 +48,9 @@ export function PersonHealthData({
 
           const vacinaPendente =
             pessoa.nomeCidadao === "HENRY GABRIEL DA SILVA FERREIRA"
-              ? "Vacina contra a Gripe"
+              ? "Gripe"
               : pessoa.nomeCidadao === "Lara Souza da Trindade"
-                ? "Vacina contra a Catapora"
+                ? "Catapora"
                 : undefined
 
           const cpf = cpfMapping[pessoa.nomeCidadao]
@@ -62,61 +58,61 @@ export function PersonHealthData({
           return (
             <div
               key={pessoa.coFatorCidadao}
-              className="grid grid-cols-2 gap-6 mb-6 p-4 rounded-lg bg-white shadow-sm border border-neutral-200"
+              className="grid grid-cols-2 gap-4 mb-4 p-3 rounded-lg bg-white shadow-sm border border-neutral-200"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 <div className="flex flex-col">
                   <span className="text-neutral-800 font-semibold">
                     Última Atualização:
                   </span>
-                  <span className="text-neutral-600">
+                  <span className="text-neutral-600 text-sm">
                     {pessoa.ultimaAtualizacao}
                   </span>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-neutral-800 font-semibold">
-                    Unidade de Saúde:
+                    Unidade:
                   </span>
-                  <span className="text-neutral-600">
+                  <span className="text-neutral-600 text-sm">
                     {pessoa.unidadeSaude}
                   </span>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-neutral-800 font-semibold">
-                    Última Consulta:
+                    Consulta:
                   </span>
-                  <span className="text-neutral-600">
+                  <span className="text-neutral-600 text-sm">
                     {pessoa.ultimaConsultaFormatada}
                   </span>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-neutral-800 font-semibold">
-                    Última Visita Domiciliar:
+                    Visita Domiciliar:
                   </span>
-                  <span className="text-neutral-600">
+                  <span className="text-neutral-600 text-sm">
                     {pessoa.ultimaVisitaDomiciliarFormatada}
                   </span>
                 </div>
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 <div className="flex flex-col">
-                  <span className="text-neutral-800 font-semibold">
-                    Condição de Saúde:
-                  </span>
-                  <span className="text-neutral-600">
+                  <span className="text-neutral-800 font-semibold">Saúde:</span>
+                  <span className="text-neutral-600 text-sm">
                     {pessoa.deficiencia === "0" &&
                     pessoa.diabetes === "0" &&
                     pessoa.hipertensaoArterial === "0"
-                      ? "Não possui nenhum problema de saúde."
-                      : "Possui alguns problemas de saúde."}
+                      ? "Sem problemas de saúde."
+                      : "Com problemas de saúde."}
                   </span>
                 </div>
                 {healthCondition && (
                   <div className="flex flex-col">
                     <span className="text-neutral-800 font-semibold">
-                      Condição de Saúde:
+                      Condição:
                     </span>
-                    <span className="text-neutral-600">{healthCondition}</span>
+                    <span className="text-neutral-600 text-sm">
+                      {healthCondition}
+                    </span>
                   </div>
                 )}
                 {vacinaPendente && (
@@ -124,12 +120,14 @@ export function PersonHealthData({
                     <span className="text-neutral-800 font-semibold">
                       Vacina Pendente:
                     </span>
-                    <span className="text-neutral-600">{vacinaPendente}</span>
+                    <span className="text-neutral-600 text-sm">
+                      {vacinaPendente}
+                    </span>
                   </div>
                 )}
                 <div className="flex flex-col" style={{ visibility: "hidden" }}>
                   <span className="text-neutral-800 font-semibold">CPF:</span>
-                  <span className="text-neutral-600">
+                  <span className="text-neutral-600 text-sm">
                     {cpf || "CPF não disponível"}
                   </span>
                 </div>

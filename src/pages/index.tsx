@@ -114,18 +114,24 @@ export default function Home() {
             <section className="flex-1 bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
               {searchTerm && (
                 <>
-                  <PersonSchoolData
-                    pessoasEscola={pessoasEscola}
-                    searchTerm={searchTerm}
-                  />
-                  <PersonHealthData
-                    pessoasSaude={pessoasSaude}
-                    searchTerm={searchTerm}
-                  />
-                  <PersonCadunicoData
-                    pessoasCadunico={pessoasCadunico}
-                    searchTerm={searchTerm}
-                  />
+                  <div className="max-h-96 overflow-y-auto">
+                    <PersonSchoolData
+                      pessoasEscola={pessoasEscola}
+                      searchTerm={searchTerm}
+                    />
+                  </div>
+                  <div className="max-h-96 overflow-y-auto mt-4">
+                    <PersonHealthData
+                      pessoasSaude={pessoasSaude}
+                      searchTerm={searchTerm}
+                    />
+                  </div>
+                  <div className="max-h-96 overflow-y-auto mt-4">
+                    <PersonCadunicoData
+                      pessoasCadunico={pessoasCadunico}
+                      searchTerm={searchTerm}
+                    />
+                  </div>
                 </>
               )}
             </section>
