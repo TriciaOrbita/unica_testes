@@ -3,8 +3,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { PessoaSaude } from "@/service/queries/getPessoasSaude"
 import { formatDistanceToNow, parseISO } from "date-fns"
-import { useState, useEffect } from "react"
-import { useTransition, animated } from "@react-spring/web"
 
 interface PessoaCadunico {
   avatar: string
