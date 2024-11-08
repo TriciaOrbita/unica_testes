@@ -105,7 +105,7 @@ const Tags = ({
     typeof searchTerm === "string" && searchTerm.trim() !== ""
 
   return (
-    <div className="p-4 border border-gray-300 rounded-lg shadow-md max-w-sm w-full ml-auto">
+    <div className="p-4 border bg-white border-gray-300 rounded-lg shadow-md max-w-sm w-full ml-auto">
       <h3 className="text-lg font-semibold mb-3 text-gray-700 text-center">
         Tags
       </h3>
