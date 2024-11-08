@@ -3,6 +3,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { PessoaSaude } from "@/service/queries/getPessoasSaude"
 import { formatDistanceToNow, parseISO } from "date-fns"
+import { useState, useEffect } from 'react'
+import { useTransition, animated } from '@react-spring/web'
 
 interface PessoaCadunico {
   avatar: string
@@ -267,7 +269,9 @@ export function PersonData({
                         <div className="flex flex-col">
                           <dt className="font-medium text-neutral-900">CPF</dt>
                           <dd className="text-neutral-700">
-                            {pessoa.pessoaCPF || cpf || "CPF não disponível"}
+                            <div className="border p-2 rounded-md bg-neutral-50">
+                              {pessoa.pessoaCPF || cpf || "CPF não disponível"}
+                            </div>
                           </dd>
                         </div>
 
@@ -276,16 +280,20 @@ export function PersonData({
                             Data de Nasc.
                           </dt>
                           <dd className="text-neutral-700">
-                            {pessoa.dataNascimento ||
-                              date ||
-                              "Data de nascimento não disponível"}
+                            <div className="border p-2 rounded-md bg-neutral-50">
+                              {pessoa.dataNascimento ||
+                                date ||
+                                "Data de nascimento não disponível"}
+                            </div>
                           </dd>
                         </div>
 
                         <div className="flex flex-col">
                           <dt className="font-medium text-neutral-900">Sexo</dt>
                           <dd className="text-neutral-700">
-                            {pessoa.sexo || sex || "Sexo não informado"}
+                            <div className="border p-2 rounded-md bg-neutral-50">
+                              {pessoa.sexo || sex || "Sexo não informado"}
+                            </div>
                           </dd>
                         </div>
 
@@ -293,7 +301,11 @@ export function PersonData({
                           <dt className="font-medium text-neutral-900">
                             Endereço
                           </dt>
-                          <dd className="text-neutral-700">{address}</dd>
+                          <dd className="text-neutral-700">
+                            <div className="border p-2 rounded-md bg-neutral-50">
+                              {address}
+                            </div>
+                          </dd>
                         </div>
                       </div>
                     </div>
@@ -406,8 +418,8 @@ export function PersonData({
                         </div>
                       ))
                     ) : (
-                      <p className="text-neutral-600 text-sm">
-                        Nenhum histórico de atividades encontrado.
+                      <p className="text-neutral-500 text-sm">
+                        Nenhuma atividade recente.
                       </p>
                     )}
                   </div>
@@ -420,3 +432,5 @@ export function PersonData({
     </ScrollArea>
   )
 }
+
+

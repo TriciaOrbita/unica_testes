@@ -31,7 +31,7 @@ export function PersonSchoolData({
 }: PersonSchoolDataProps) {
   if (!pessoasEscola || pessoasEscola.length === 0) {
     return (
-      <p className="text-neutral-600 italic">Nenhum dado escolar disponível.</p>
+      <p className="text-neutral-600 italic text-sm">Nenhum dado escolar disponível.</p>
     )
   }
 
@@ -42,77 +42,68 @@ export function PersonSchoolData({
   )
 
   return (
-    <div className="w-full max-w-[90rem] mx-auto p-6 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
-      <h2 className="text-xl font-bold text-blue-800 mb-4 border-b border-neutral-300 pb-1">
+    <div className="w-full max-w-[90rem] mx-auto p-4 rounded-lg border border-neutral-200 bg-gray-50 shadow-md min-w-[400px]">
+      <h2 className="text-lg font-semibold text-blue-800 mb-4 border-b-2 border-neutral-300 pb-1">
         Dados Escolares
       </h2>
       {filteredData.length > 0 ? (
         filteredData.map((pessoa: PessoaEscola) => (
           <div
             key={pessoa.cpf}
-            className="grid grid-cols-2 gap-4 mb-4 p-3 rounded-lg bg-white shadow-sm border border-neutral-200 text-sm"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3 p-4 rounded-lg bg-white shadow-sm border border-neutral-200 transition-transform duration-200 transform hover:scale-102"
           >
             <div className="flex flex-col gap-2">
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">
+                <span className="text-neutral-700 text-sm font-medium">
                   Última Atualização:
                 </span>
-                <span className="text-neutral-600">
-                  {pessoa.dataAtt || "Data não disponível"}
-                </span>
+                <div className="border border-neutral-300 rounded-md p-2 text-neutral-600 text-sm">
+                  {pessoa.dataAtt || "N/D"}
+                </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">Escola:</span>
-                <span className="text-neutral-600">
-                  {pessoa.nomeEscola || "Nome não disponível"}
-                </span>
+                <span className="text-neutral-700 text-sm font-medium">Escola:</span>
+                <div className="border border-neutral-300 rounded-md p-2 text-neutral-600 text-sm">
+                  {pessoa.nomeEscola || "N/D"}
+                </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">Turma:</span>
-                <span className="text-neutral-600">
-                  {pessoa.turma || "Turma não disponível"}
-                </span>
+                <span className="text-neutral-700 text-sm font-medium">Turma:</span>
+                <div className="border border-neutral-300 rounded-md p-2 text-neutral-600 text-sm">
+                  {pessoa.turma || "N/D"}
+                </div>
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">Situação:</span>
-                <span className="text-neutral-600">
-                  {pessoa.situacao || "Situação não disponível"}
-                </span>
+                <span className="text-neutral-700 text-sm font-medium">Situação:</span>
+                <div className="border border-neutral-300 rounded-md p-2 text-neutral-600 text-sm">
+                  {pessoa.situacao || "N/D"}
+                </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">PCD:</span>
-                <span className="text-neutral-600">
-                  {pessoa.pcd || "Não disponível"}
-                </span>
+                <span className="text-neutral-700 text-sm font-medium">PCD:</span>
+                <div className="border border-neutral-300 rounded-md p-2 text-neutral-600 text-sm">
+                  {pessoa.pcd || "N/D"}
+                </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">
-                  Filiação 1:
-                </span>
-                <span className="text-neutral-600">
-                  {pessoa.filiacao1 || "Não disponível"}
-                </span>
+                <span className="text-neutral-700 text-sm font-medium">Filiação 1:</span>
+                <div className="border border-neutral-300 rounded-md p-2 text-neutral-600 text-sm">
+                  {pessoa.filiacao1 || "N/D"}
+                </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">
-                  Filiação 2:
-                </span>
-                <span className="text-neutral-600">
-                  {pessoa.filiacao2 || "Não disponível"}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs" style={{ visibility: "hidden" }}>
-                  {pessoa.cpf}
-                </span>
+                <span className="text-neutral-700 text-sm font-medium">Filiação 2:</span>
+                <div className="border border-neutral-300 rounded-md p-2 text-neutral-600 text-sm">
+                  {pessoa.filiacao2 || "N/D"}
+                </div>
               </div>
             </div>
           </div>
         ))
       ) : (
-        <p className="text-neutral-500 italic">Nenhum resultado encontrado.</p>
+        <p className="text-neutral-500 text-sm italic">Nenhum resultado encontrado.</p>
       )}
     </div>
   )
