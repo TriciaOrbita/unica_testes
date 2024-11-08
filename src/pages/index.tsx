@@ -93,7 +93,7 @@ export default function Home() {
       </Popover>
 
       <main className="pt-24 min-h-screen">
-        <div className="max-w-[100rem] mx-auto px-4">
+        <div className="max-w-[100rem] mx-auto px-2">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Left Sidebar (Search and Data) */}
             <aside className="flex-1 bg-gray-200 p-4 rounded-lg shadow-sm">

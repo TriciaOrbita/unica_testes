@@ -41,21 +41,21 @@ const Tags = ({
       colorClass: "bg-red-100 text-red-700",
       condition: () => {
         // Verifica se o nome do cidadão corresponde ao Henry e se tem o endereço inválido
-        const isHenry = searchTerm === "HENRY GABRIEL DA SILVA FERREIRA";
-        const hasInvalidAddressInHealth =
-          healthData.some(
-            (person) =>
-              person.nomeCidadao === "HENRY GABRIEL DA SILVA FERREIRA" &&
-              person.unidadeSaude === "Endereço Inválido"
-          );
-        const hasInvalidAddressInCadunico =
-          cadunicoData.some(
-            (person) =>
-              person.pessoaNome === "HENRY GABRIEL DA SILVA FERREIRA" &&
-              person.local === "Endereço Inválido"
-          );
+        const isHenry = searchTerm === "HENRY GABRIEL DA SILVA FERREIRA"
+        const hasInvalidAddressInHealth = healthData.some(
+          (person) =>
+            person.nomeCidadao === "HENRY GABRIEL DA SILVA FERREIRA" &&
+            person.unidadeSaude === "Endereço Inválido"
+        )
+        const hasInvalidAddressInCadunico = cadunicoData.some(
+          (person) =>
+            person.pessoaNome === "HENRY GABRIEL DA SILVA FERREIRA" &&
+            person.local === "Endereço Inválido"
+        )
 
-        return isHenry && (hasInvalidAddressInHealth || hasInvalidAddressInCadunico);
+        return (
+          isHenry && (hasInvalidAddressInHealth || hasInvalidAddressInCadunico)
+        )
       }
     },
     {
