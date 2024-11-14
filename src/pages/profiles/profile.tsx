@@ -1,11 +1,13 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
+// import { useRouter } from "next/router";
 
-export default function Profile({
-  onSelect
-}: {
+// Defina o tipo das props e inclua `onSelect`
+type ProfileProps = {
   onSelect: (profile: string) => void
-}) {
+}
+
+export default function Profile({ onSelect }: ProfileProps) {
   const profiles = [
     "Secretário de Saúde",
     "Médico",
@@ -17,7 +19,6 @@ export default function Profile({
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Header */}
       <header className="fixed w-full top-0 z-50 border-b-2 border-green-700/40">
         <div className="bg-white py-4 shadow-md">
           <nav className="relative mx-auto max-w-7xl flex items-center justify-between px-6">
@@ -34,7 +35,6 @@ export default function Profile({
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="pt-24 flex justify-center items-center min-h-screen bg-gray-100">
         <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
@@ -56,7 +56,6 @@ export default function Profile({
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="w-full bg-gray-800 py-6 mt-10">
         <div className="max-w-7xl mx-auto px-6 text-center text-white">
           Desenvolvido por Órbita Tecnologia

@@ -1,7 +1,11 @@
 import { useState } from "react"
 import Image from "next/image"
 
-export default function Login({ onLogin }: { onLogin: () => void }) {
+interface LoginProps {
+  onLogin: (profile: string) => void
+}
+
+export default function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoggingIn, setIsLoggingIn] = useState(false)
@@ -9,8 +13,10 @@ export default function Login({ onLogin }: { onLogin: () => void }) {
   const handleLogin = () => {
     setIsLoggingIn(true)
     setTimeout(() => {
-      if (email === "" && password === "") {
-        onLogin()
+      if (email === "admin@example.com" && password === "admin123") {
+        onLogin("Admin")
+      } else if (email === "educacao@example.com" && password === "edu123") {
+        onLogin("Educacao")
       } else {
         alert("Credenciais inválidas")
       }

@@ -1,39 +1,32 @@
 import { usePessoasEscola } from "@/service/queries/getPessoasEscola"
-import { usePessoasSaude } from "@/service/queries/getPessoasSaude"
 import { usePessoas } from "@/service/queries/getPessoas"
-import { PersonHealthData } from "@/components/pages/home/person-health-data"
 import { PersonSchoolData } from "@/components/pages/home/person-school-data"
 import { PersonCadunicoData } from "@/components/pages/home/person-cadunico-data"
 import { PersonData } from "@/components/pages/home/person-data"
 import Tags from "@/components/pages/home/Tags"
-import Login from "@/components/pages/login/login"
-import Profile from "@/pages/profiles/profile"
+import SearchInput from "@/components/pages/home/SearchInput"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
-import { useState, useEffect } from "react"
-import SearchInput from "@/components/pages/home/SearchInput"
-import { useRouter } from "next/router"
+import React, { useState } from "react"
 
-export default function Home() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [selectedProfile, setSelectedProfile] = useState<string | null>(null)
+export default function EducationProfile() {
   const [searchTerm, setSearchTerm] = useState("")
   const { data: pessoas, error: errorPessoa } = usePessoas()
   const { data: pessoasEscola, error: errorEscola } = usePessoasEscola()
-  const { data: pessoasSaude, error: errorSaude } = usePessoasSaude()
   const { data: pessoasCadunico, error: errorCadunico } = usePessoas()
-  const router = useRouter()
 
   const pessoa = pessoas?.[0]
 
-  useEffect(() => {
-    // Redireciona para a página do perfil de Educação se o perfil for selecionado como "Educação"
-    if (isAuthenticated && selectedProfile === "Educacao") {
-      router.push("profiles/education-profile")
-    }
-  }, [isAuthenticated, selectedProfile, router])
+  console.log("pessoas:", pessoas)
+  console.log("pessoasEscola:", pessoasEscola)
+  console.log("pessoasCadunico:", pessoasCadunico)
 
-  if (errorEscola || errorPessoa || errorSaude || errorCadunico) {
+  if (errorEscola || errorPessoa || errorCadunico) {
+    console.log("Erro ao carregar dados:", {
+      errorPessoa,
+      errorEscola,
+      errorCadunico
+    })
     return (
       <div className="flex min-h-screen items-center justify-center">
         <h2 className="flex items-center gap-2 text-red-600">
@@ -44,23 +37,7 @@ export default function Home() {
     )
   }
 
-  const handleLogin = (profile: string) => {
-    setIsAuthenticated(true)
-    setSelectedProfile(profile)
-    if (profile === "Admin") {
-      // Admin permanece na tela de seleção de perfis
-      setSelectedProfile("Admin")
-    }
-  }
-
-  if (!isAuthenticated) {
-    return <Login onLogin={handleLogin} />
-  }
-
-  if (!selectedProfile) {
-    return <Profile onSelect={(profile) => setSelectedProfile(profile)} />
-  }
-
+  // Certifique-se de que todas as chaves ou parênteses estão fechados
   return (
     <div className="relative overflow-hidden bg-gray-100">
       {/* Header */}
@@ -95,7 +72,6 @@ export default function Home() {
               {pessoa && (
                 <PersonData
                   pessoasCadunico={pessoasCadunico}
-                  pessoasSaude={pessoasSaude}
                   searchTerm={searchTerm}
                 />
               )}
@@ -112,12 +88,6 @@ export default function Home() {
                     />
                   </div>
                   <div className="max-h-96 overflow-y-auto mt-4">
-                    <PersonHealthData
-                      pessoasSaude={pessoasSaude}
-                      searchTerm={searchTerm}
-                    />
-                  </div>
-                  <div className="max-h-96 overflow-y-auto mt-4">
                     <PersonCadunicoData
                       pessoasCadunico={pessoasCadunico}
                       searchTerm={searchTerm}
@@ -129,11 +99,7 @@ export default function Home() {
 
             {/* Right Sidebar (Tags) */}
             <aside className="flex-1 bg-gray-200 p-4 rounded-lg shadow-sm max-w-xs ml-auto">
-              <Tags
-                healthData={pessoasSaude}
-                cadunicoData={pessoasCadunico}
-                searchTerm={searchTerm}
-              />
+              <Tags cadunicoData={pessoasCadunico} searchTerm={searchTerm} />
             </aside>
           </div>
         </div>
