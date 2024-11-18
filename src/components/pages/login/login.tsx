@@ -13,7 +13,7 @@ export default function Login({ onLogin }: LoginProps) {
   const handleLogin = () => {
     setIsLoggingIn(true)
     setTimeout(() => {
-      if (email === "admin@teste.com" && password === "admin123") {
+      if (email === "adminorbita@teste.com" && password === "admin123") {
         onLogin("Admin")
       } else if (email === "educacao@teste.com" && password === "edu123") {
         onLogin("Educacao")
