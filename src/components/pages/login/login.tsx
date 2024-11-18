@@ -13,9 +13,9 @@ export default function Login({ onLogin }: LoginProps) {
   const handleLogin = () => {
     setIsLoggingIn(true)
     setTimeout(() => {
-      if (email === "admin@example.com" && password === "admin123") {
+      if (email === "admin@teste.com" && password === "admin123") {
         onLogin("Admin")
-      } else if (email === "educacao@example.com" && password === "edu123") {
+      } else if (email === "educacao@teste.com" && password === "edu123") {
         onLogin("Educacao")
       } else {
         alert("Credenciais inválidas")

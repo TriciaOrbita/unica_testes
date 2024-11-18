@@ -221,7 +221,7 @@ export function PersonData({
                 src={
                   combinedData[0].nomeCidadao ===
                   "Hyrllen Batista Lisboa Furtado"
-                    ? "https://example.com/avatar-image.png"
+                    ? "https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sClOFEuO35sX949mWLZQ6UzEUkdjTC5VJxK0FU7jHf6-eDDtzDbkQdPchUuwZmKdaaECxDEsU4AYTOzUyC6mUkFvk1FDfuWpQby7Gt6vrXwMQ2xwyNqYcxzKvxj5SXXife2IZCmjdllf5eHY7Zf4LI6wyIy7Dh5ic2kE_4AONPX-3zpmjqskzS2P-2izhwWdeA8UowxETlRJcbUhIV-bC4pcRcMi73UllATSUhHJu14-3mDBk2ULUymhdKj2Bt80OXqwTKBycDS6_NDDXuWp4CzsvaFxf4EnXz90jDbfHxpsHGZ5dGGUgK955XJCO-EvM=w1920-h991"
                     : combinedData[0].avatar
                 }
                 alt="Avatar"
