@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 interface PessoaEscola {
   cpf: string
@@ -27,84 +27,84 @@ interface PersonSchoolDataProps {
 
 export function PersonSchoolData({
   pessoasEscola,
-  searchTerm
+  searchTerm,
 }: PersonSchoolDataProps) {
   if (!pessoasEscola || pessoasEscola.length === 0) {
     return (
-      <p className="text-neutral-600 italic">Nenhum dado escolar disponível.</p>
+      <p className="italic text-neutral-600">Nenhum dado escolar disponível.</p>
     )
   }
 
   const filteredData = pessoasEscola.filter(
     (pessoa) =>
       pessoa.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pessoa.cpf.includes(searchTerm)
+      pessoa.cpf.includes(searchTerm),
   )
 
   return (
-    <div className="w-full max-w-[90rem] mx-auto p-6 rounded-lg border border-neutral-200 bg-gray-50 shadow-lg min-w-[400px]">
-      <h2 className="text-xl font-bold text-blue-800 mb-4 border-b border-neutral-300 pb-1">
+    <div className="mx-auto w-full min-w-[400px] max-w-[90rem] rounded-lg border border-neutral-200 bg-gray-50 p-6 shadow-lg">
+      <h2 className="mb-4 border-b border-neutral-300 pb-1 text-xl font-bold text-blue-800">
         Dados Escolares
       </h2>
       {filteredData.length > 0 ? (
         filteredData.map((pessoa: PessoaEscola) => (
           <div
             key={pessoa.cpf}
-            className="grid grid-cols-2 gap-4 mb-4 p-3 rounded-lg bg-white shadow-sm border border-neutral-200 text-sm"
+            className="mb-4 grid grid-cols-2 gap-4 rounded-lg border border-neutral-200 bg-white p-3 text-sm shadow-sm"
           >
             <div className="flex flex-col gap-2">
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">
+                <span className="font-medium text-neutral-800">
                   Última Atualização:
                 </span>
                 <span className="text-neutral-600">
-                  {pessoa.dataAtt || "Data não disponível"}
+                  {pessoa.dataAtt || 'Data não disponível'}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">Escola:</span>
+                <span className="font-medium text-neutral-800">Escola:</span>
                 <span className="text-neutral-600">
-                  {pessoa.nomeEscola || "Nome não disponível"}
+                  {pessoa.nomeEscola || 'Nome não disponível'}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">Turma:</span>
+                <span className="font-medium text-neutral-800">Turma:</span>
                 <span className="text-neutral-600">
-                  {pessoa.turma || "Turma não disponível"}
+                  {pessoa.turma || 'Turma não disponível'}
                 </span>
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">Situação:</span>
+                <span className="font-medium text-neutral-800">Situação:</span>
                 <span className="text-neutral-600">
-                  {pessoa.situacao || "Situação não disponível"}
+                  {pessoa.situacao || 'Situação não disponível'}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">PCD:</span>
+                <span className="font-medium text-neutral-800">PCD:</span>
                 <span className="text-neutral-600">
-                  {pessoa.pcd || "Não disponível"}
+                  {pessoa.pcd || 'Não disponível'}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">
+                <span className="font-medium text-neutral-800">
                   Filiação 1:
                 </span>
                 <span className="text-neutral-600">
-                  {pessoa.filiacao1 || "Não disponível"}
+                  {pessoa.filiacao1 || 'Não disponível'}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-neutral-800 font-medium">
+                <span className="font-medium text-neutral-800">
                   Filiação 2:
                 </span>
                 <span className="text-neutral-600">
-                  {pessoa.filiacao2 || "Não disponível"}
+                  {pessoa.filiacao2 || 'Não disponível'}
                 </span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs" style={{ visibility: "hidden" }}>
+              <div className="flex items-center justify-between">
+                <span className="text-xs" style={{ visibility: 'hidden' }}>
                   {pessoa.cpf}
                 </span>
               </div>
@@ -112,7 +112,7 @@ export function PersonSchoolData({
           </div>
         ))
       ) : (
-        <p className="text-neutral-500 italic">Nenhum resultado encontrado.</p>
+        <p className="italic text-neutral-500">Nenhum resultado encontrado.</p>
       )}
     </div>
   )

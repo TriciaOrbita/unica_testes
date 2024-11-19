@@ -1,24 +1,24 @@
-import { useState } from "react"
-import Image from "next/image"
+import { useState } from 'react'
+import Image from 'next/image'
 
 interface LoginProps {
   onLogin: (profile: string) => void
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [isLoggingIn, setIsLoggingIn] = useState(false)
 
   const handleLogin = () => {
     setIsLoggingIn(true)
     setTimeout(() => {
-      if (email === "adminorbita@teste.com" && password === "admin123") {
-        onLogin("Admin")
-      } else if (email === "educacao@teste.com" && password === "edu123") {
-        onLogin("Educacao")
+      if (email === 'adminorbita@teste.com' && password === 'admin123') {
+        onLogin('Admin')
+      } else if (email === 'educacao@teste.com' && password === 'edu123') {
+        onLogin('Educacao')
       } else {
-        alert("Credenciais inválidas")
+        alert('Credenciais inválidas')
       }
       setIsLoggingIn(false)
     }, 1500)
@@ -27,9 +27,9 @@ export default function Login({ onLogin }: LoginProps) {
   return (
     <div className="relative min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="fixed w-full top-0 z-50 border-b-2 border-green-700/40">
+      <header className="fixed top-0 z-50 w-full border-b-2 border-green-700/40">
         <div className="bg-white py-4 shadow-md">
-          <nav className="relative mx-auto max-w-7xl flex items-center justify-between px-6">
+          <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6">
             <div className="flex items-center">
               <Image
                 alt="Prefeitura"
@@ -44,9 +44,9 @@ export default function Login({ onLogin }: LoginProps) {
       </header>
 
       {/* Main Content */}
-      <main className="pt-24 flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+      <main className="flex min-h-screen items-center justify-center bg-gray-100 pt-24">
+        <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
+          <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
             Login
           </h2>
           <input
@@ -54,28 +54,28 @@ export default function Login({ onLogin }: LoginProps) {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 mb-4 border rounded-md shadow-sm"
+            className="mb-4 w-full rounded-md border px-4 py-2 shadow-sm"
           />
           <input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 mb-6 border rounded-md shadow-sm"
+            className="mb-6 w-full rounded-md border px-4 py-2 shadow-sm"
           />
           <button
             onClick={handleLogin}
             disabled={isLoggingIn}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           >
-            {isLoggingIn ? "Entrando..." : "Entrar"}
+            {isLoggingIn ? 'Entrando...' : 'Entrar'}
           </button>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="w-full bg-gray-800 py-6 mt-10">
-        <div className="max-w-7xl mx-auto px-6 text-center text-white">
+      <footer className="mt-10 w-full bg-gray-800 py-6">
+        <div className="mx-auto max-w-7xl px-6 text-center text-white">
           Desenvolvido por Órbita Tecnologia
         </div>
       </footer>

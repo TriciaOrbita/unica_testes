@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 type Person = {
   nome: string
@@ -17,7 +17,7 @@ type SearchPersonProps = {
 export const SearchPerson: React.FC<SearchPersonProps> = ({
   onSearch,
   filteredResults,
-  onSelect
+  onSelect,
 }) => {
   return (
     <div>

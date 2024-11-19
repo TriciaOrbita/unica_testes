@@ -1,8 +1,9 @@
-import React from "react"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { PessoaSaude } from "@/service/queries/getPessoasSaude"
-import { formatDistanceToNow, parseISO } from "date-fns"
+import React from 'react'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { PessoaSaude } from '@/service/queries/getPessoasSaude'
+import { formatDistanceToNow } from 'date-fns'
+import parseISO from 'date-fns/parseISO'
 
 interface PessoaCadunico {
   avatar: string
@@ -24,174 +25,174 @@ interface PersonDataProps {
 }
 
 const cpfMapping: { [key: string]: string } = {
-  "HENRY GABRIEL DA SILVA FERREIRA": "10028205294",
-  "Hyrllen Batista Lisboa Furtado": "01809843227",
-  "LARA SOUZA DA TRINDADE": "12345678901",
-  "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": "10987654321"
+  'HENRY GABRIEL DA SILVA FERREIRA': '10028205294',
+  'Hyrllen Batista Lisboa Furtado': '01809843227',
+  'LARA SOUZA DA TRINDADE': '12345678901',
+  'DAVID DO SOCORRO QUEIROZ DE OLIVEIRA': '10987654321',
 }
 
 const sexMapping: { [key: string]: string } = {
-  "HENRY GABRIEL DA SILVA FERREIRA": "Masculino",
-  "Hyrllen Batista Lisboa Furtado": "Feminino",
-  "LARA SOUZA DA TRINDADE": "Feminino",
-  "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": "Masculino"
+  'HENRY GABRIEL DA SILVA FERREIRA': 'Masculino',
+  'Hyrllen Batista Lisboa Furtado': 'Feminino',
+  'LARA SOUZA DA TRINDADE': 'Feminino',
+  'DAVID DO SOCORRO QUEIROZ DE OLIVEIRA': 'Masculino',
 }
 
 const dateMapping: { [key: string]: string } = {
-  "HENRY GABRIEL DA SILVA FERREIRA": "19/11/2021",
-  "Hyrllen Batista Lisboa Furtado": "29/08/1999",
-  "LARA SOUZA DA TRINDADE": "10/05/1995",
-  "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": "15/12/1990"
+  'HENRY GABRIEL DA SILVA FERREIRA': '19/11/2021',
+  'Hyrllen Batista Lisboa Furtado': '29/08/1999',
+  'LARA SOUZA DA TRINDADE': '10/05/1995',
+  'DAVID DO SOCORRO QUEIROZ DE OLIVEIRA': '15/12/1990',
 }
 
 const activityMapping: { [key: string]: { activity: string; date: string }[] } =
   {
-    "HENRY GABRIEL DA SILVA FERREIRA": [
+    'HENRY GABRIEL DA SILVA FERREIRA': [
       {
-        activity: "Henry Gabriel da Silva Ferreira foi vacinado.",
-        date: "2024-11-01"
+        activity: 'Henry Gabriel da Silva Ferreira foi vacinado.',
+        date: '2024-11-01',
       },
       {
         activity:
-          "Henry Gabriel da Silva Ferreira teve consulta médica agendada.",
-        date: "2024-11-02"
+          'Henry Gabriel da Silva Ferreira teve consulta médica agendada.',
+        date: '2024-11-02',
       },
       {
-        activity: "Henry Gabriel da Silva Ferreira realizou exame de rotina.",
-        date: "2024-11-03"
-      }
+        activity: 'Henry Gabriel da Silva Ferreira realizou exame de rotina.',
+        date: '2024-11-03',
+      },
     ],
-    "HYRLLEN BATISTA LISBOA FURTADO": [
+    'HYRLLEN BATISTA LISBOA FURTADO': [
       {
-        activity: "Hyrllen Batista Lisboa Furtado foi vacinado.",
-        date: "2024-10-20"
+        activity: 'Hyrllen Batista Lisboa Furtado foi vacinado.',
+        date: '2024-10-20',
       },
       {
         activity:
-          "Hyrllen Batista Lisboa Furtado não compareceu à consulta médica.",
-        date: "2024-10-25"
+          'Hyrllen Batista Lisboa Furtado não compareceu à consulta médica.',
+        date: '2024-10-25',
       },
       {
-        activity: "Hyrllen Batista Lisboa Furtado realizou exame de rotina.",
-        date: "2024-09-15"
-      }
+        activity: 'Hyrllen Batista Lisboa Furtado realizou exame de rotina.',
+        date: '2024-09-15',
+      },
     ],
-    "LARA SOUZA DA TRINDADE": [
-      { activity: "Lara Souza da Trindade foi vacinada.", date: "2024-08-10" },
+    'LARA SOUZA DA TRINDADE': [
+      { activity: 'Lara Souza da Trindade foi vacinada.', date: '2024-08-10' },
       {
-        activity: "Lara Souza da Trindade teve consulta médica agendada.",
-        date: "2024-09-12"
+        activity: 'Lara Souza da Trindade teve consulta médica agendada.',
+        date: '2024-09-12',
       },
       {
-        activity: "Lara Souza da Trindade realizou exame de rotina.",
-        date: "2024-09-05"
-      }
+        activity: 'Lara Souza da Trindade realizou exame de rotina.',
+        date: '2024-09-05',
+      },
     ],
-    "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": [
+    'DAVID DO SOCORRO QUEIROZ DE OLIVEIRA': [
       {
-        activity: "David do Socorro Queiroz de Oliveira não foi vacinado.",
-        date: "2024-06-15"
+        activity: 'David do Socorro Queiroz de Oliveira não foi vacinado.',
+        date: '2024-06-15',
       },
       {
         activity:
-          "David do Socorro Queiroz de Oliveira teve consulta médica agendada.",
-        date: "2024-07-02"
+          'David do Socorro Queiroz de Oliveira teve consulta médica agendada.',
+        date: '2024-07-02',
       },
       {
         activity:
-          "David do Socorro Queiroz de Oliveira realizou exame de rotina.",
-        date: "2024-07-10"
-      }
+          'David do Socorro Queiroz de Oliveira realizou exame de rotina.',
+        date: '2024-07-10',
+      },
     ],
-    "EMERSON ELVES MATOS ALBUQUERQUE": [
+    'EMERSON ELVES MATOS ALBUQUERQUE': [
       {
-        activity: "Emerson Elves Matos Albuquerque foi vacinado.",
-        date: "2024-10-20"
+        activity: 'Emerson Elves Matos Albuquerque foi vacinado.',
+        date: '2024-10-20',
       },
       {
         activity:
-          "Emerson Elves Matos Albuquerque não compareceu à consulta médica.",
-        date: "2024-11-01"
+          'Emerson Elves Matos Albuquerque não compareceu à consulta médica.',
+        date: '2024-11-01',
       },
       {
-        activity: "Emerson Elves Matos Albuquerque realizou exame de rotina.",
-        date: "2024-11-15"
-      }
-    ]
+        activity: 'Emerson Elves Matos Albuquerque realizou exame de rotina.',
+        date: '2024-11-15',
+      },
+    ],
   }
 
 const schoolActivityMapping: {
   [key: string]: { activity: string; date: string }[]
 } = {
-  "HENRY GABRIEL DA SILVA FERREIRA": [
+  'HENRY GABRIEL DA SILVA FERREIRA': [
     {
-      activity: "Henry Gabriel da Silva Ferreira entrou na escola.",
-      date: "2024-03-01"
+      activity: 'Henry Gabriel da Silva Ferreira entrou na escola.',
+      date: '2024-03-01',
     },
     {
-      activity: "Henry Gabriel da Silva Ferreira realizou prova de Matemática.",
-      date: "2024-10-20"
+      activity: 'Henry Gabriel da Silva Ferreira realizou prova de Matemática.',
+      date: '2024-10-20',
     },
     {
       activity:
-        "Henry Gabriel da Silva Ferreira apresentou o projeto de Ciências.",
-      date: "2024-09-15"
+        'Henry Gabriel da Silva Ferreira apresentou o projeto de Ciências.',
+      date: '2024-09-15',
     },
     {
-      activity: "Henry Gabriel da Silva Ferreira saiu da escola.",
-      date: "2024-12-15"
-    }
+      activity: 'Henry Gabriel da Silva Ferreira saiu da escola.',
+      date: '2024-12-15',
+    },
   ],
-  "LARA SOUZA DA TRINDADE": [
+  'LARA SOUZA DA TRINDADE': [
     {
-      activity: "Lara Souza da Trindade entrou na escola.",
-      date: "2024-01-05"
+      activity: 'Lara Souza da Trindade entrou na escola.',
+      date: '2024-01-05',
     },
     {
-      activity: "Lara Souza da Trindade realizou prova de História.",
-      date: "2024-08-12"
+      activity: 'Lara Souza da Trindade realizou prova de História.',
+      date: '2024-08-12',
     },
     {
       activity:
-        "Lara Souza da Trindade realizou atividade externa de aprendizado.",
-      date: "2024-07-15"
+        'Lara Souza da Trindade realizou atividade externa de aprendizado.',
+      date: '2024-07-15',
     },
     {
-      activity: "Lara Souza da Trindade apresentou em um evento da escola.",
-      date: "2024-11-30"
-    }
+      activity: 'Lara Souza da Trindade apresentou em um evento da escola.',
+      date: '2024-11-30',
+    },
   ],
-  "DAVID DO SOCORRO QUEIROZ DE OLIVEIRA": [
+  'DAVID DO SOCORRO QUEIROZ DE OLIVEIRA': [
     {
-      activity: "David do Socorro Queiroz de Oliveira entrou na escola.",
-      date: "2024-04-01"
+      activity: 'David do Socorro Queiroz de Oliveira entrou na escola.',
+      date: '2024-04-01',
     },
     {
       activity:
-        "David do Socorro Queiroz de Oliveira realizou prova de Física.",
-      date: "2024-06-18"
+        'David do Socorro Queiroz de Oliveira realizou prova de Física.',
+      date: '2024-06-18',
     },
     {
       activity:
-        "David do Socorro Queiroz de Oliveira apresentou o projeto de Robótica.",
-      date: "2024-06-30"
+        'David do Socorro Queiroz de Oliveira apresentou o projeto de Robótica.',
+      date: '2024-06-30',
     },
     {
-      activity: "David do Socorro Queiroz de Oliveira saiu da escola.",
-      date: "2024-12-05"
-    }
-  ]
+      activity: 'David do Socorro Queiroz de Oliveira saiu da escola.',
+      date: '2024-12-05',
+    },
+  ],
 }
 
 export function PersonData({
   pessoasCadunico,
   pessoasSaude,
-  searchTerm
+  searchTerm,
 }: PersonDataProps) {
   const filteredCadunicoData = pessoasCadunico.filter(
     (pessoa) =>
       pessoa.pessoaNome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pessoa.pessoaCPF.includes(searchTerm)
+      pessoa.pessoaCPF.includes(searchTerm),
   )
 
   const safePessoasSaude = pessoasSaude || []
@@ -209,24 +210,24 @@ export function PersonData({
       : []
   const combinedData =
     filteredCadunicoData.length > 0 ? filteredCadunicoData : filteredHealthData
-  const hasResults = combinedData.length > 0 && searchTerm.trim() !== ""
+  const hasResults = combinedData.length > 0 && searchTerm.trim() !== ''
 
   return (
     <ScrollArea className="h-full w-full rounded-lg border border-neutral-300 bg-white shadow-lg">
-      <div className="relative flex flex-col items-center w-full">
+      <div className="relative flex w-full flex-col items-center">
         {hasResults && (
-          <div className="flex flex-col items-center justify-center py-6 bg-neutral-100 w-full rounded-t-lg shadow-md">
-            <Avatar className="w-40 h-40">
+          <div className="flex w-full flex-col items-center justify-center rounded-t-lg bg-neutral-100 py-6 shadow-md">
+            <Avatar className="h-40 w-40">
               <AvatarImage
                 src={
                   combinedData[0].nomeCidadao ===
-                  "Hyrllen Batista Lisboa Furtado"
-                    ? "https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sClOFEuO35sX949mWLZQ6UzEUkdjTC5VJxK0FU7jHf6-eDDtzDbkQdPchUuwZmKdaaECxDEsU4AYTOzUyC6mUkFvk1FDfuWpQby7Gt6vrXwMQ2xwyNqYcxzKvxj5SXXife2IZCmjdllf5eHY7Zf4LI6wyIy7Dh5ic2kE_4AONPX-3zpmjqskzS2P-2izhwWdeA8UowxETlRJcbUhIV-bC4pcRcMi73UllATSUhHJu14-3mDBk2ULUymhdKj2Bt80OXqwTKBycDS6_NDDXuWp4CzsvaFxf4EnXz90jDbfHxpsHGZ5dGGUgK955XJCO-EvM=w1920-h991"
+                  'Hyrllen Batista Lisboa Furtado'
+                    ? 'https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sClOFEuO35sX949mWLZQ6UzEUkdjTC5VJxK0FU7jHf6-eDDtzDbkQdPchUuwZmKdaaECxDEsU4AYTOzUyC6mUkFvk1FDfuWpQby7Gt6vrXwMQ2xwyNqYcxzKvxj5SXXife2IZCmjdllf5eHY7Zf4LI6wyIy7Dh5ic2kE_4AONPX-3zpmjqskzS2P-2izhwWdeA8UowxETlRJcbUhIV-bC4pcRcMi73UllATSUhHJu14-3mDBk2ULUymhdKj2Bt80OXqwTKBycDS6_NDDXuWp4CzsvaFxf4EnXz90jDbfHxpsHGZ5dGGUgK955XJCO-EvM=w1920-h991'
                     : combinedData[0].avatar
                 }
                 alt="Avatar"
                 onError={(e) => {
-                  e.currentTarget.src = "/images/default-avatar.jpg"
+                  e.currentTarget.src = '/images/default-avatar.jpg'
                 }}
               />
               <AvatarFallback>?</AvatarFallback>
@@ -234,7 +235,7 @@ export function PersonData({
             <h2 className="font-medium">
               {combinedData[0].pessoaNome ||
                 combinedData[0].nomeCidadao ||
-                "Nome do Cidadão"}
+                'Nome do Cidadão'}
             </h2>
           </div>
         )}
@@ -253,22 +254,22 @@ export function PersonData({
                       pessoa.rua,
                       pessoa.tipoLogradouro,
                       pessoa.logradouro,
-                      pessoa.numeroDomicilio
+                      pessoa.numeroDomicilio,
                     ]
                       .filter(Boolean)
-                      .join(", ") || "Endereço não disponível"
+                      .join(', ') || 'Endereço não disponível'
 
                   return (
                     <div
                       key={pessoa.coFatorCidadao || pessoa.pessoaNome}
-                      className="w-full p-2 bg-white"
+                      className="w-full bg-white p-2"
                     >
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
                         <div className="flex flex-col">
                           <dt className="font-medium text-neutral-900">CPF</dt>
                           <dd className="text-neutral-700">
-                            <div className="border p-2 rounded-md bg-neutral-50">
-                              {pessoa.pessoaCPF || cpf || "CPF não disponível"}
+                            <div className="rounded-md border bg-neutral-50 p-2">
+                              {pessoa.pessoaCPF || cpf || 'CPF não disponível'}
                             </div>
                           </dd>
                         </div>
@@ -278,10 +279,10 @@ export function PersonData({
                             Data de Nasc.
                           </dt>
                           <dd className="text-neutral-700">
-                            <div className="border p-2 rounded-md bg-neutral-50">
+                            <div className="rounded-md border bg-neutral-50 p-2">
                               {pessoa.dataNascimento ||
                                 date ||
-                                "Data de nascimento não disponível"}
+                                'Data de nascimento não disponível'}
                             </div>
                           </dd>
                         </div>
@@ -289,8 +290,8 @@ export function PersonData({
                         <div className="flex flex-col">
                           <dt className="font-medium text-neutral-900">Sexo</dt>
                           <dd className="text-neutral-700">
-                            <div className="border p-2 rounded-md bg-neutral-50">
-                              {pessoa.sexo || sex || "Sexo não informado"}
+                            <div className="rounded-md border bg-neutral-50 p-2">
+                              {pessoa.sexo || sex || 'Sexo não informado'}
                             </div>
                           </dd>
                         </div>
@@ -300,7 +301,7 @@ export function PersonData({
                             Endereço
                           </dt>
                           <dd className="text-neutral-700">
-                            <div className="border p-2 rounded-md bg-neutral-50">
+                            <div className="rounded-md border bg-neutral-50 p-2">
                               {address}
                             </div>
                           </dd>
@@ -319,15 +320,15 @@ export function PersonData({
         </div>
 
         {hasResults && (
-          <div className="w-full p-6 mt-6 bg-neutral-50 border-t-2 border-neutral-200 rounded-lg shadow-sm flex flex-col">
-            <h3 className="text-xl font-semibold text-neutral-700 mb-4">
+          <div className="mt-6 flex w-full flex-col rounded-lg border-t-2 border-neutral-200 bg-neutral-50 p-6 shadow-sm">
+            <h3 className="mb-4 text-xl font-semibold text-neutral-700">
               Histórico de Atividades
             </h3>
-            <div className="max-h-96 overflow-y-auto space-y-4">
+            <div className="max-h-96 space-y-4 overflow-y-auto">
               {combinedData.map((pessoa) => {
                 const personNameCidadao =
-                  pessoa.nomeCidadao?.toUpperCase() || ""
-                const personNamePessoa = pessoa.pessoaNome?.toUpperCase() || ""
+                  pessoa.nomeCidadao?.toUpperCase() || ''
+                const personNamePessoa = pessoa.pessoaNome?.toUpperCase() || ''
 
                 // Buscar as atividades de saúde e escolares
                 const healthActivities =
@@ -345,24 +346,24 @@ export function PersonData({
                 return (
                   <div
                     key={pessoa.nomeCidadao || pessoa.nomePessoa}
-                    className="w-full flex flex-col space-y-4"
+                    className="flex w-full flex-col space-y-4"
                   >
                     {allActivities.length > 0 ? (
                       allActivities.map((activity, index) => (
                         <div
                           key={index}
-                          className="flex items-start space-x-3 w-full"
+                          className="flex w-full items-start space-x-3"
                         >
                           {/* Ícone representativo da atividade */}
                           <span className="flex-shrink-0">
                             <div
-                              className={`h-8 w-8 rounded-full flex items-center justify-center ${
-                                activity.activity.includes("Saúde")
-                                  ? "bg-blue-500"
-                                  : "bg-green-500"
+                              className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                                activity.activity.includes('Saúde')
+                                  ? 'bg-blue-500'
+                                  : 'bg-green-500'
                               }`}
                             >
-                              {activity.activity.includes("Saúde") ? (
+                              {activity.activity.includes('Saúde') ? (
                                 <svg
                                   className="h-5 w-5 text-white"
                                   fill="currentColor"
@@ -383,40 +384,27 @@ export function PersonData({
                           </span>
                           {/* Conteúdo da atividade */}
                           <div>
-                            <p className="text-neutral-700 font-medium">
+                            <p className="font-medium text-neutral-700">
                               {activity.activity}
                             </p>
-                            <p className="text-neutral-500 text-sm">
-                              há{" "}
+                            <p className="text-sm text-neutral-500">
+                              há{' '}
                               {formatDistanceToNow(parseISO(activity.date), {
-                                addSuffix: true
+                                addSuffix: true,
                               })}
                             </p>
                             {pessoa.unidadeSaude &&
-                              activity.activity.includes("Saúde") && (
-                                <p className="text-neutral-600 text-sm">
-                                  Unidade de Saúde:{" "}
-                                  {pessoa.unidadeSaude || "Não informado"}
+                              activity.activity.includes('Saúde') && (
+                                <p className="text-sm text-neutral-600">
+                                  Unidade de Saúde:{' '}
+                                  {pessoa.unidadeSaude || 'Não informado'}
                                 </p>
                               )}
-                            {/* Status atualizado da atividade */}
-                            {activity.previousStatus && (
-                              <div className="mt-1 text-sm text-neutral-600">
-                                <span className="font-semibold">Antes:</span>{" "}
-                                {activity.previousStatus}
-                              </div>
-                            )}
-                            {activity.currentStatus && (
-                              <div className="mt-1 text-sm text-neutral-600">
-                                <span className="font-semibold">Agora:</span>{" "}
-                                {activity.currentStatus}
-                              </div>
-                            )}
                           </div>
                         </div>
                       ))
                     ) : (
-                      <p className="text-neutral-500 text-sm">
+                      <p className="text-sm text-neutral-500">
                         Nenhuma atividade recente.
                       </p>
                     )}

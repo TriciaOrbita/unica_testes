@@ -1,7 +1,7 @@
 // services/useSearchPerson.ts
-import { usePessoas } from "./queries/getPessoas"
-import { usePessoasEscola } from "./queries/getPessoasEscola"
-import { usePessoasSaude } from "./queries/getPessoasSaude"
+import { usePessoas } from './queries/getPessoas'
+import { usePessoasEscola } from './queries/getPessoasEscola'
+import { usePessoasSaude } from './queries/getPessoasSaude'
 
 interface PersonData {
   name: string
@@ -31,13 +31,13 @@ export const useSearchPerson = (searchTerm: string) => {
   const { data: pessoasSaude = [] } = usePessoasSaude()
 
   const personFromPessoas = pessoas.find(
-    (p: Pessoa) => p.name.includes(searchTerm) || p.cpf === searchTerm
+    (p: Pessoa) => p.name.includes(searchTerm) || p.cpf === searchTerm,
   )
   const personFromEscola = pessoasEscola.find(
-    (p: Pessoa) => p.name.includes(searchTerm) || p.cpf === searchTerm
+    (p: Pessoa) => p.name.includes(searchTerm) || p.cpf === searchTerm,
   )
   const personFromSaude = pessoasSaude.find(
-    (p: Pessoa) => p.name.includes(searchTerm) || p.cpf === searchTerm
+    (p: Pessoa) => p.name.includes(searchTerm) || p.cpf === searchTerm,
   )
 
   // Combinação dos dados, priorizando o dado disponível
@@ -46,17 +46,17 @@ export const useSearchPerson = (searchTerm: string) => {
       personFromPessoas?.name ||
       personFromEscola?.name ||
       personFromSaude?.name ||
-      "",
+      '',
     cpf:
       personFromPessoas?.cpf ||
       personFromEscola?.cpf ||
       personFromSaude?.cpf ||
-      "",
+      '',
     birthDate:
       personFromPessoas?.birthDate ||
       personFromEscola?.birthDate ||
       personFromSaude?.birthDate ||
-      "",
+      '',
     age:
       personFromPessoas?.age ||
       personFromEscola?.age ||
@@ -66,10 +66,10 @@ export const useSearchPerson = (searchTerm: string) => {
       personFromPessoas?.address ||
       (personFromEscola
         ? `${personFromEscola.local}, ${personFromEscola.rua} ${personFromEscola.numeroLogradouro}`
-        : "") ||
+        : '') ||
       (personFromSaude
         ? `${personFromSaude.bairroDomicilio}, ${personFromSaude.logradouro}`
-        : "")
+        : ''),
   }
 
   // Se não encontrou dados relevantes, retorna null

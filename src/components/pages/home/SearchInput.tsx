@@ -1,5 +1,5 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
-import React from "react"
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import React from 'react'
 
 // Definindo a interface para as props do componente
 interface SearchPersonProps {
@@ -9,15 +9,15 @@ interface SearchPersonProps {
 
 const SearchPerson: React.FC<SearchPersonProps> = ({
   searchTerm,
-  setSearchTerm
+  setSearchTerm,
 }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value) // Atualiza o termo de busca
   }
 
   return (
-    <div className="pb-4 flex gap-2 items-center border-b border-neutral-300">
-      <div className="relative rounded-md shadow-sm flex-1">
+    <div className="flex items-center gap-2 border-b border-neutral-300 pb-4">
+      <div className="relative flex-1 rounded-md shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <MagnifyingGlassIcon
             aria-hidden="true"
