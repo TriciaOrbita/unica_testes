@@ -1,6 +1,5 @@
 import React from 'react'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { PessoaSaude } from '@/service/queries/getPessoasSaude'
 import { formatDistanceToNow } from 'date-fns'
 import parseISO from 'date-fns/parseISO'
@@ -212,18 +211,18 @@ export function PersonData({
     filteredCadunicoData.length > 0 ? filteredCadunicoData : filteredHealthData
   const hasResults = combinedData.length > 0 && searchTerm.trim() !== ''
 
-  return (
+return (
     <ScrollArea className="bg-neutral-100">
       <div className="relative flex w-full flex-col items-center">
         {/* Top Section */}
-          {hasResults && (
-            <div className="relative w-full rounded-t-[300px] bg-green-600 pt-6 pb-4 flex flex-col items-center">
-              <div className="relative h-56 w-56 overflow-hidden rounded-full border-4 border-neutral-200 shadow-lg">
-                <img
-                  src={
+        {hasResults && (
+          <div className="relative flex w-full flex-col items-center rounded-t-[300px] bg-green-600 pb-4 pt-6">
+            <div className="relative h-56 w-56 overflow-hidden rounded-full border-4 border-neutral-200 shadow-lg">
+            <img
+                src={
                     combinedData[0].nomeCidadao === 'Hyrllen Batista Lisboa Furtado'
-                      ? 'https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sClOFEuO35sX949mWLZQ6UzEUkdjTC5VJxK0FU7jHf6-eDDtzDbkQdPchUuwZmKdaaECxDEsU4AYTOzUyC6mUkFvk1FDfuWpQby7Gt6vrXwMQ2xwyNqYcxzKvxj5SXXife2IZCmjdllf5eHY7Zf4LI6wyIy7Dh5ic2kE_4AONPX-3zpmjqskzS2P-2izhwWdeA8UowxETlRJcbUhIV-bC4pcRcMi73UllATSUhHJu14-3mDBk2ULUymhdKj2Bt80OXqwTKBycDS6_NDDXuWp4CzsvaFxf4EnXz90jDbfHxpsHGZ5dGGUgK955XJCO-EvM=w1920-h991'
-                      : combinedData[0].avatar
+                    ? 'https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sClOFEuO35sX949mWLZQ6UzEUkdjTC5VJxK0FU7jHf6-eDDtzDbkQdPchUuwZmKdaaECxDEsU4AYTOzUyC6mUkFvk1FDfuWpQby7Gt6vrXwMQ2xwyNqYcxzKvxj5SXXife2IZCmjdllf5eHY7Zf4LI6wyIy7Dh5ic2kE_4AONPX-3zpmjqskzS2P-2izhwWdeA8UowxETlRJcbUhIV-bC4pcRcMi73UllATSUhHJu14-3mDBk2ULUymhdKj2Bt80OXqwTKBycDS6_NDDXuWp4CzsvaFxf4EnXz90jDbfHxpsHGZ5dGGUgK955XJCO-EvM=w1920-h991'
+                    : combinedData[0].avatar
                   }
                   alt="Avatar"
                   className="h-full w-full object-cover"
@@ -231,13 +230,13 @@ export function PersonData({
                     e.currentTarget.src = '/images/default-avatar.jpg';
                   }}
                 />
-              </div>
-              <h2 className="mt-12 font-medium text-xl text-white text-center">
-                {combinedData[0].pessoaNome ||
-                  combinedData[0].nomeCidadao ||
-                  'Nome do Cidadão'}
+            </div>
+            <h2 className="mt-12 text-center text-xl font-medium text-white">
+              {combinedData[0].pessoaNome ||
+                combinedData[0].nomeCidadao ||
+                'Nome do Cidadão'}
             </h2>
-           </div>
+          </div>
         )}
         <div className="w-full bg-green-600 px-6 py-8">
           {searchTerm && hasResults ? (
@@ -297,9 +296,7 @@ export function PersonData({
                         </div>
 
                         <div className="flex flex-col">
-                          <dt className="font-medium text-white">
-                            Endereço
-                          </dt>
+                          <dt className="font-medium text-white">Endereço</dt>
                           <dd className="text-neutral-700">
                             <div className="rounded-md border bg-neutral-50 p-2">
                               {address}
@@ -318,6 +315,7 @@ export function PersonData({
             )
           )}
         </div>
+
         {hasResults && (
           <div className="flex w-full flex-col border border-green-600 bg-neutral-50 p-6 shadow-sm">
             <h3 className="mb-4 text-xl font-semibold text-neutral-700">
