@@ -102,7 +102,7 @@ const Tags = ({
   }
 
   const shouldRenderTags =
-    typeof searchTerm === 'string' && searchTerm.trim() !== ''
+    typeof searchTerm === "string" && searchTerm.trim() !== ""
 
   return (
     <div className="ml-auto w-full max-w-sm rounded-lg border border-gray-300 bg-white p-4 shadow-md">
@@ -123,7 +123,7 @@ const Tags = ({
                   <div className="flex items-center justify-between">
                     <h4 className="text-md font-semibold">{title}</h4>
                     <span
-                      className={`transition-transform duration-200 ${selectedTag === title ? 'rotate-180' : ''}`}
+                      className={`transition-transform duration-200 ${selectedTag === title ? "rotate-180" : ""}`}
                     >
                       ▼ {/* Down arrow */}
                     </span>

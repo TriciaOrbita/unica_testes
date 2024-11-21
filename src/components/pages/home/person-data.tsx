@@ -213,33 +213,33 @@ export function PersonData({
   const hasResults = combinedData.length > 0 && searchTerm.trim() !== ''
 
   return (
-    <ScrollArea className="h-full w-full rounded-lg border border-neutral-300 bg-white shadow-lg">
+    <ScrollArea className="bg-neutral-100">
       <div className="relative flex w-full flex-col items-center">
-        {hasResults && (
-          <div className="flex w-full flex-col items-center justify-center rounded-t-lg bg-neutral-100 py-6 shadow-md">
-            <Avatar className="h-40 w-40">
-              <AvatarImage
-                src={
-                  combinedData[0].nomeCidadao ===
-                  'Hyrllen Batista Lisboa Furtado'
-                    ? 'https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sClOFEuO35sX949mWLZQ6UzEUkdjTC5VJxK0FU7jHf6-eDDtzDbkQdPchUuwZmKdaaECxDEsU4AYTOzUyC6mUkFvk1FDfuWpQby7Gt6vrXwMQ2xwyNqYcxzKvxj5SXXife2IZCmjdllf5eHY7Zf4LI6wyIy7Dh5ic2kE_4AONPX-3zpmjqskzS2P-2izhwWdeA8UowxETlRJcbUhIV-bC4pcRcMi73UllATSUhHJu14-3mDBk2ULUymhdKj2Bt80OXqwTKBycDS6_NDDXuWp4CzsvaFxf4EnXz90jDbfHxpsHGZ5dGGUgK955XJCO-EvM=w1920-h991'
-                    : combinedData[0].avatar
-                }
-                alt="Avatar"
-                onError={(e) => {
-                  e.currentTarget.src = '/images/default-avatar.jpg'
-                }}
-              />
-              <AvatarFallback>?</AvatarFallback>
-            </Avatar>
-            <h2 className="font-medium">
-              {combinedData[0].pessoaNome ||
-                combinedData[0].nomeCidadao ||
-                'Nome do Cidadão'}
-            </h2>
-          </div>
-        )}
-        <div className="w-full px-6 py-8">
+        {/* Top Section */}
+          {hasResults && (
+            <div className="relative w-full rounded-t-[300px] bg-green-600 pt-6 pb-4 flex flex-col items-center">
+              <div className="relative h-56 w-56 overflow-hidden rounded-full border-4 border-neutral-200 shadow-lg">
+                <img
+                  src={
+                    combinedData[0].nomeCidadao === 'Hyrllen Batista Lisboa Furtado'
+                      ? 'https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sClOFEuO35sX949mWLZQ6UzEUkdjTC5VJxK0FU7jHf6-eDDtzDbkQdPchUuwZmKdaaECxDEsU4AYTOzUyC6mUkFvk1FDfuWpQby7Gt6vrXwMQ2xwyNqYcxzKvxj5SXXife2IZCmjdllf5eHY7Zf4LI6wyIy7Dh5ic2kE_4AONPX-3zpmjqskzS2P-2izhwWdeA8UowxETlRJcbUhIV-bC4pcRcMi73UllATSUhHJu14-3mDBk2ULUymhdKj2Bt80OXqwTKBycDS6_NDDXuWp4CzsvaFxf4EnXz90jDbfHxpsHGZ5dGGUgK955XJCO-EvM=w1920-h991'
+                      : combinedData[0].avatar
+                  }
+                  alt="Avatar"
+                  className="h-full w-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/default-avatar.jpg';
+                  }}
+                />
+              </div>
+              <h2 className="mt-12 font-medium text-xl text-white text-center">
+                {combinedData[0].pessoaNome ||
+                  combinedData[0].nomeCidadao ||
+                  'Nome do Cidadão'}
+              </h2>
+            </div>
+          )}
+        <div className="w-full px-6 py-8 bg-green-600">
           {searchTerm && hasResults ? (
             <div className="w-full space-y-6">
               <dl className="">
@@ -262,11 +262,11 @@ export function PersonData({
                   return (
                     <div
                       key={pessoa.coFatorCidadao || pessoa.pessoaNome}
-                      className="w-full bg-white p-2"
+                      className="w-full bg-green-600"
                     >
                       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
                         <div className="flex flex-col">
-                          <dt className="font-medium text-neutral-900">CPF</dt>
+                          <dt className="font-medium text-white">CPF</dt>
                           <dd className="text-neutral-700">
                             <div className="rounded-md border bg-neutral-50 p-2">
                               {pessoa.pessoaCPF || cpf || 'CPF não disponível'}
@@ -275,8 +275,8 @@ export function PersonData({
                         </div>
 
                         <div className="flex flex-col">
-                          <dt className="font-medium text-neutral-900">
-                            Data de Nasc.
+                          <dt className="font-medium text-white">
+                            Data de Nascimento
                           </dt>
                           <dd className="text-neutral-700">
                             <div className="rounded-md border bg-neutral-50 p-2">
@@ -288,7 +288,7 @@ export function PersonData({
                         </div>
 
                         <div className="flex flex-col">
-                          <dt className="font-medium text-neutral-900">Sexo</dt>
+                          <dt className="font-medium text-white">Sexo</dt>
                           <dd className="text-neutral-700">
                             <div className="rounded-md border bg-neutral-50 p-2">
                               {pessoa.sexo || sex || 'Sexo não informado'}
@@ -297,7 +297,7 @@ export function PersonData({
                         </div>
 
                         <div className="flex flex-col">
-                          <dt className="font-medium text-neutral-900">
+                          <dt className="font-medium text-white">
                             Endereço
                           </dt>
                           <dd className="text-neutral-700">
@@ -319,8 +319,10 @@ export function PersonData({
           )}
         </div>
 
+       
+
         {hasResults && (
-          <div className="mt-6 flex w-full flex-col rounded-lg border-t-2 border-neutral-200 bg-neutral-50 p-6 shadow-sm">
+          <div className="flex w-full flex-col border border-green-600 bg-neutral-50 p-6 shadow-sm">
             <h3 className="mb-4 text-xl font-semibold text-neutral-700">
               Histórico de Atividades
             </h3>

@@ -47,105 +47,96 @@ export function PersonHealthData({
   )
 
   return (
-    <div className="mx-auto w-full min-w-[400px] max-w-[90rem] rounded-lg border border-neutral-200 bg-gray-50 p-6 shadow-lg">
-      <h2 className="mb-4 border-b border-neutral-300 pb-1 text-xl font-bold text-blue-800">
+    <div className="">
+      {/* Título em verde com texto branco */}
+      <h2 className="border-b border-neutral-300 pb-2 text-2xl font-bold text-center text-white bg-green-600 p-2 rounded-t-lg">
         Dados de Saúde
       </h2>
+  
       {uniqueData.length > 0 ? (
         uniqueData.map((pessoa: PessoaSaude) => {
           const healthCondition =
             pessoa.nomeCidadao === 'HENRY GABRIEL DA SILVA FERREIRA'
               ? 'CID J45 - Asma'
-              : pessoa.condicaoSaude
-
+              : pessoa.condicaoSaude;
+  
           const vacinaPendente =
             pessoa.nomeCidadao === 'HENRY GABRIEL DA SILVA FERREIRA'
               ? 'Gripe'
               : pessoa.nomeCidadao === 'Lara Souza da Trindade'
-                ? 'Catapora'
-                : undefined
-
-          const cpf = cpfMapping[pessoa.nomeCidadao]
-
+              ? 'Catapora'
+              : undefined;
+  
+          const cpf = cpfMapping[pessoa.nomeCidadao];
+  
           return (
             <div
               key={pessoa.coFatorCidadao}
-              className="mb-4 grid grid-cols-2 gap-4 rounded-lg border border-neutral-200 bg-white p-3 shadow-sm"
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4 border bg-white p-4 shadow-sm"
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800">
+                  <span className="font-semibold text-neutral-800 text-base">
                     Última Atualização:
                   </span>
-                  <span className="text-sm text-neutral-600">
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                     {pessoa.ultimaAtualizacao}
-                  </span>
+                  </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800">
+                  <span className="font-semibold text-neutral-800 text-base">
                     Unidade:
                   </span>
-                  <span className="text-sm text-neutral-600">
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                     {pessoa.unidadeSaude}
-                  </span>
+                  </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800">
+                  <span className="font-semibold text-neutral-800 text-base">
                     Consulta:
                   </span>
-                  <span className="text-sm text-neutral-600">
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                     {pessoa.ultimaConsultaFormatada}
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800">
-                    Visita Domiciliar:
-                  </span>
-                  <span className="text-sm text-neutral-600">
-                    {pessoa.ultimaVisitaDomiciliarFormatada}
-                  </span>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
+  
+              <div className="flex flex-col gap-4">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800">Saúde:</span>
-                  <span className="text-sm text-neutral-600">
+                  <span className="font-semibold text-neutral-800 text-base">
+                    Saúde:
+                  </span>
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                     {pessoa.deficiencia === '0' &&
                     pessoa.diabetes === '0' &&
                     pessoa.hipertensaoArterial === '0'
                       ? 'Sem problemas de saúde.'
                       : 'Com problemas de saúde.'}
-                  </span>
-                </div>
-                {healthCondition && (
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-neutral-800">
-                      Condição:
-                    </span>
-                    <span className="text-sm text-neutral-600">
-                      {healthCondition}
-                    </span>
                   </div>
-                )}
+                </div>
+  
                 {vacinaPendente && (
                   <div className="flex flex-col">
-                    <span className="font-semibold text-neutral-800">
+                    <span className="font-semibold text-neutral-800 text-base">
                       Vacina Pendente:
                     </span>
-                    <span className="text-sm text-neutral-600">
+                    <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                       {vacinaPendente}
-                    </span>
+                    </div>
                   </div>
                 )}
-                <div className="flex flex-col" style={{ visibility: 'hidden' }}>
-                  <span className="font-semibold text-neutral-800">CPF:</span>
-                  <span className="text-sm text-neutral-600">
-                    {cpf || 'CPF não disponível'}
-                  </span>
-                </div>
+
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-neutral-800 text-base">
+                      Visita Domiciliar:
+                    </span>
+                    <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                      {pessoa.ultimaVisitaDomiciliarFormatada}
+                    </div>
+                  </div>
               </div>
             </div>
-          )
+          );
         })
       ) : (
         <p className="italic text-neutral-500">Nenhum resultado encontrado.</p>

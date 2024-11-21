@@ -1,4 +1,5 @@
 import React from 'react'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 interface PessoaEscola {
   cpf: string
@@ -42,78 +43,75 @@ export function PersonSchoolData({
   )
 
   return (
-    <div className="mx-auto w-full min-w-[400px] max-w-[90rem] rounded-lg border border-neutral-200 bg-gray-50 p-6 shadow-lg">
-      <h2 className="mb-4 border-b border-neutral-300 pb-1 text-xl font-bold text-blue-800">
-        Dados Escolares
-      </h2>
-      {filteredData.length > 0 ? (
-        filteredData.map((pessoa: PessoaEscola) => (
-          <div
-            key={pessoa.cpf}
-            className="mb-4 grid grid-cols-2 gap-4 rounded-lg border border-neutral-200 bg-white p-3 text-sm shadow-sm"
-          >
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col">
-                <span className="font-medium text-neutral-800">
-                  Última Atualização:
-                </span>
-                <span className="text-neutral-600">
-                  {pessoa.dataAtt || 'Data não disponível'}
-                </span>
+    <div>
+      {/* Título em verde com texto branco */}
+      <h2 className="border-b border-neutral-300 pb-1 text-2xl font-bold text-white bg-green-600 p-2 rounded-t-lg text-center">
+    Dados Escolares
+  </h2>
+       
+      {/* Scrollable Area */}
+      <ScrollArea className="overflow-auto"> {/* Ajuste de altura para o ScrollArea */}
+        {filteredData.length > 0 ? (
+          filteredData.map((pessoa: PessoaEscola) => (
+            <div
+              key={pessoa.cpf}
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4 border border-neutral-200 bg-white p-4 text-sm shadow-sm"
+            >
+              {/* Primeira coluna de dados */}
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-col">
+                  <span className="font-medium text-neutral-800 text-base">Última Atualização:</span>
+                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                    {pessoa.dataAtt || 'Data não disponível'}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-medium text-neutral-800 text-base">Escola:</span>
+                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                    {pessoa.nomeEscola || 'Nome não disponível'}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-medium text-neutral-800 text-base">Turma:</span>
+                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                    {pessoa.turma || 'Turma não disponível'}
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <span className="font-medium text-neutral-800">Escola:</span>
-                <span className="text-neutral-600">
-                  {pessoa.nomeEscola || 'Nome não disponível'}
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-medium text-neutral-800">Turma:</span>
-                <span className="text-neutral-600">
-                  {pessoa.turma || 'Turma não disponível'}
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col">
-                <span className="font-medium text-neutral-800">Situação:</span>
-                <span className="text-neutral-600">
-                  {pessoa.situacao || 'Situação não disponível'}
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-medium text-neutral-800">PCD:</span>
-                <span className="text-neutral-600">
-                  {pessoa.pcd || 'Não disponível'}
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-medium text-neutral-800">
-                  Filiação 1:
-                </span>
-                <span className="text-neutral-600">
-                  {pessoa.filiacao1 || 'Não disponível'}
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-medium text-neutral-800">
-                  Filiação 2:
-                </span>
-                <span className="text-neutral-600">
-                  {pessoa.filiacao2 || 'Não disponível'}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-xs" style={{ visibility: 'hidden' }}>
-                  {pessoa.cpf}
-                </span>
+  
+              {/* Segunda coluna de dados */}
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-col">
+                  <span className="font-medium text-neutral-800 text-base">Situação:</span>
+                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                    {pessoa.situacao || 'Situação não disponível'}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-medium text-neutral-800 text-base">PCD:</span>
+                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                    {pessoa.pcd || 'Não disponível'}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-medium text-neutral-800 text-base">Filição 1:</span>
+                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                    {pessoa.filiacao1 || 'Não disponível'}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-medium text-neutral-800 text-base">Filição 2:</span>
+                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                    {pessoa.filiacao2 || 'Não disponível'}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p className="italic text-neutral-500">Nenhum resultado encontrado.</p>
-      )}
+          ))
+        ) : (
+          <p className="italic text-neutral-500">Nenhum resultado encontrado.</p>
+        )}
+      </ScrollArea>
     </div>
-  )
+  )    
 }

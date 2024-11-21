@@ -5,6 +5,7 @@ import { PersonCadunicoData } from '@/components/pages/home/person-cadunico-data
 import { PersonData } from '@/components/pages/home/person-data'
 import Tags from '@/components/pages/home/Tags'
 import SearchInput from '@/components/pages/home/SearchInput'
+import Avaliacoes from '@/components/pages/education/avaliacoes'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React, { useState } from 'react'
@@ -39,11 +40,12 @@ export default function EducationProfile() {
 
   // Certifique-se de que todas as chaves ou parênteses estão fechados
   return (
-    <div className="relative overflow-hidden bg-gray-100">
+    <div className="relative bg-gray-100">
       {/* Header */}
       <header className="fixed top-0 z-50 w-full border-b-2 border-green-700/40">
         <div className="bg-white py-4">
           <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6">
+            {/* Logo */}
             <div className="flex items-center">
               <a href="#">
                 <Image
@@ -55,56 +57,82 @@ export default function EducationProfile() {
                 />
               </a>
             </div>
+  
+            {/* Search Input and Logout Button */}
+            <div className="flex items-center gap-4">
+              <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+              <button
+                className="rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+              >
+                Sair
+              </button>
+            </div>
           </nav>
         </div>
       </header>
-
+  
       {/* Main Content */}
-      <main className="min-h-screen pt-24">
+      <main className="min-h-screen pt-24 pb-16">
         <div className="mx-auto max-w-[100rem] px-2">
           <div className="flex flex-col gap-4 lg:flex-row">
-            {/* Left Sidebar (Search and Data) */}
-            <aside className="flex-1 rounded-lg bg-gray-200 p-4 shadow-sm">
-              <SearchInput
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              />
+            {/* Left Sidebar (Person Data) */}
+            <aside className="flex-1 rounded-lg">
+              {/* Mostra apenas PersonData abaixo do SearchInput */}
               {pessoa && (
-                <PersonData
-                  pessoasCadunico={pessoasCadunico}
-                  searchTerm={searchTerm}
-                />
+                <section className="mx-auto">
+                  <PersonData
+                    pessoasCadunico={pessoasCadunico}
+                    searchTerm={searchTerm}
+                  />
+                </section>
               )}
             </aside>
-
-            {/* Center Section (Person Data) */}
-            <section className="mx-auto max-w-3xl flex-1 rounded-lg bg-white p-6 shadow-lg">
-              {searchTerm && (
-                <>
+  
+            {/* Condição para mostrar itens apenas se houver pesquisa */}
+            {searchTerm && (
+              <>
+              <div className="mx-auto max-w-3xl flex flex-col gap-8">
+                {/* Center Section (Person Data) */}
+                <section className="mx-auto max-w-3xl max-h-96 flex-1 p-6 border border-green-300">
                   <div className="max-h-96 overflow-y-auto">
                     <PersonSchoolData
                       pessoasEscola={pessoasEscola}
                       searchTerm={searchTerm}
                     />
                   </div>
-                  <div className="mt-4 max-h-96 overflow-y-auto">
-                    <PersonCadunicoData
-                      pessoasCadunico={pessoasCadunico}
-                      searchTerm={searchTerm}
-                    />
-                  </div>
-                </>
-              )}
-            </section>
+                </section>
 
-            {/* Right Sidebar (Tags) */}
-            <aside className="ml-auto max-w-xs flex-1 rounded-lg bg-gray-200 p-4 shadow-sm">
-              <Tags cadunicoData={pessoasCadunico} searchTerm={searchTerm} />
-            </aside>
+                {/* Seção para Cadunico e Avaliacoes lado a lado */}
+                <section className="flex-1 p-6 border border-green-300">
+                <div className="mt-8 flex gap-8">
+                    <div className="flex-1 max-h-96 overflow-y-auto">
+                      <PersonCadunicoData
+                        pessoasCadunico={pessoasCadunico}
+                        searchTerm={searchTerm}
+                      />
+                    </div>
+
+                    <div className="flex-1 max-h-96 overflow-y-auto">
+                      <Avaliacoes />
+                    </div>
+                  </div>
+                </section>
+                </div>
+
+
+              {/* Right Sidebar (Tags) */}
+              <aside className="ml-auto w-[300px] max-h-[300px] overflow-y-auto border border-green-300">
+                <Tags
+                  cadunicoData={pessoasCadunico}
+                  searchTerm={searchTerm}
+                />
+              </aside>
+              </>
+            )}
           </div>
         </div>
       </main>
-
+  
       {/* Footer */}
       <footer className="fixed bottom-0 w-full bg-green-600 py-4 text-center">
         <h2 className="text-sm font-semibold text-white">
@@ -112,5 +140,5 @@ export default function EducationProfile() {
         </h2>
       </footer>
     </div>
-  )
+  )  
 }

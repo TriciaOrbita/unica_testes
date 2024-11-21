@@ -16,7 +16,7 @@ const SearchPerson: React.FC<SearchPersonProps> = ({
   }
 
   return (
-    <div className="flex items-center gap-2 border-b border-neutral-300 pb-4">
+    <div className="flex items-center gap-2">
       <div className="relative flex-1 rounded-md shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <MagnifyingGlassIcon

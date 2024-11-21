@@ -39,77 +39,90 @@ export function PersonCadunicoData({
   )
 
   return (
-    <div className="mx-auto w-full min-w-[400px] max-w-[90rem] rounded-lg border border-neutral-200 bg-gray-50 p-6 shadow-lg">
-      <h2 className="mb-4 border-b border-neutral-300 pb-1 text-xl font-bold text-blue-800">
+    <div className="">
+      {/* Título em verde com texto branco */}
+      <h2 className="border-b border-neutral-300 pb-2 text-2xl font-bold text-center text-white bg-green-600 p-2 rounded-t-lg">
         Dados do CadÚnico
       </h2>
+  
       <div>
         {filteredData.length > 0 ? (
           filteredData.map((pessoa: PessoaCadunico) => (
             <div
               key={pessoa.pessoaCPF}
-              className="mb-4 grid grid-cols-2 gap-4 rounded-lg border border-neutral-200 bg-white p-3 text-sm shadow-sm"
+              className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4 border bg-white p-4 shadow-sm"
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800">Nome:</span>
-                  <span className="text-neutral-600">
-                    {pessoa.pessoaNome || 'Nome não disponível'}
+                  <span className="font-semibold text-neutral-800 text-base">
+                    Nome:
                   </span>
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                    {pessoa.pessoaNome || 'Nome não disponível'}
+                  </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800">
+                  <span className="font-semibold text-neutral-800 text-base">
                     Data de Nascimento:
                   </span>
-                  <span className="text-neutral-600">
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                     {pessoa.dataNascimento}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-neutral-800 text-base">
+                    Sexo:
                   </span>
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                    {pessoa.sexo}
+                  </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800">Sexo:</span>
-                  <span className="text-neutral-600">{pessoa.sexo}</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800">
+                  <span className="font-semibold text-neutral-800 text-base">
                     Situação de Rua:
                   </span>
-                  <span className="text-neutral-600">
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                     {pessoa.situacaoRua === '0'
                       ? 'Não está em situação de rua'
                       : 'Está em situação de rua'}
-                  </span>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
+  
+              <div className="flex flex-col gap-4">
                 {pessoa.pessoaNIS && (
                   <div className="flex flex-col">
-                    <span className="font-medium text-neutral-800">NIS:</span>
-                    <span className="text-neutral-600">{pessoa.pessoaNIS}</span>
+                    <span className="font-semibold text-neutral-800 text-base">
+                      NIS:
+                    </span>
+                    <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                      {pessoa.pessoaNIS}
+                    </div>
                   </div>
                 )}
                 {pessoa.mesesDesatualizacaoCadastro && (
                   <div className="flex flex-col">
-                    <span className="font-medium text-neutral-800">
+                    <span className="font-semibold text-neutral-800 text-base">
                       Meses de Desatualização do Cadastro:
                     </span>
-                    <span className="text-neutral-600">
+                    <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
                       {pessoa.mesesDesatualizacaoCadastro}
-                    </span>
+                    </div>
                   </div>
                 )}
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800">CPF:</span>
-                  <span className="text-neutral-600">
-                    {pessoa.pessoaCPF || 'CPF não disponível'}
+                  <span className="font-semibold text-neutral-800 text-base">
+                    CPF:
                   </span>
+                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                    {pessoa.pessoaCPF || 'CPF não disponível'}
+                  </div>
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <p className="italic text-neutral-500">
-            Nenhum resultado encontrado.
-          </p>
+          <p className="italic text-neutral-500">Nenhum resultado encontrado.</p>
         )}
       </div>
     </div>
