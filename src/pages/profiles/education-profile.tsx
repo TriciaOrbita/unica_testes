@@ -57,22 +57,22 @@ export default function EducationProfile() {
                 />
               </a>
             </div>
-  
             {/* Search Input and Logout Button */}
             <div className="flex items-center gap-4">
-              <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-              <button
-                className="rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
-              >
+              <SearchInput
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
+              <button className="rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600">
                 Sair
               </button>
             </div>
           </nav>
         </div>
       </header>
-  
+
       {/* Main Content */}
-      <main className="min-h-screen pt-24 pb-16">
+      <main className="min-h-screen pb-16 pt-24">
         <div className="mx-auto max-w-[100rem] px-2">
           <div className="flex flex-col gap-4 lg:flex-row">
             {/* Left Sidebar (Person Data) */}
@@ -87,52 +87,49 @@ export default function EducationProfile() {
                 </section>
               )}
             </aside>
-  
+
             {/* Condição para mostrar itens apenas se houver pesquisa */}
             {searchTerm && (
               <>
-              <div className="mx-auto max-w-3xl flex flex-col gap-8">
-                {/* Center Section (Person Data) */}
-                <section className="mx-auto max-w-3xl max-h-96 flex-1 p-6 border border-green-300">
-                  <div className="max-h-96 overflow-y-auto">
-                    <PersonSchoolData
-                      pessoasEscola={pessoasEscola}
-                      searchTerm={searchTerm}
-                    />
-                  </div>
-                </section>
-
-                {/* Seção para Cadunico e Avaliacoes lado a lado */}
-                <section className="flex-1 p-6 border border-green-300">
-                <div className="mt-8 flex gap-8">
-                    <div className="flex-1 max-h-96 overflow-y-auto">
-                      <PersonCadunicoData
-                        pessoasCadunico={pessoasCadunico}
+                <div className="mx-auto flex max-w-3xl flex-col gap-8">
+                  {/* Center Section (Person Data) */}
+                  <section className="mx-auto max-h-96 max-w-3xl flex-1 border border-green-300 p-6">
+                    <div className="max-h-96 overflow-y-auto">
+                      <PersonSchoolData
+                        pessoasEscola={pessoasEscola}
                         searchTerm={searchTerm}
                       />
                     </div>
+                  </section>
 
-                    <div className="flex-1 max-h-96 overflow-y-auto">
-                      <Avaliacoes />
+                  {/* Seção para Cadunico e Avaliacoes lado a lado */}
+                  <section className="flex-1 border border-green-300 p-6">
+                    <div className="mt-8 flex gap-8">
+                      <div className="max-h-96 flex-1 overflow-y-auto">
+                        <PersonCadunicoData
+                          pessoasCadunico={pessoasCadunico}
+                          searchTerm={searchTerm}
+                        />
+                      </div>
+
+                      <div className="max-h-96 flex-1 overflow-y-auto">
+                        <Avaliacoes />
+                      </div>
                     </div>
-                  </div>
-                </section>
+                  </section>
                 </div>
-
-
-              {/* Right Sidebar (Tags) */}
-              <aside className="ml-auto w-[300px] max-h-[300px] overflow-y-auto border border-green-300">
-                <Tags
-                  cadunicoData={pessoasCadunico}
-                  searchTerm={searchTerm}
-                />
-              </aside>
+                {/* Right Sidebar (Tags) */}
+                <aside className="ml-auto max-h-[300px] w-[300px] overflow-y-auto border border-green-300">
+                  <Tags
+                    cadunicoData={pessoasCadunico}
+                    searchTerm={searchTerm}
+                  />
+                </aside>
               </>
             )}
           </div>
         </div>
       </main>
-  
       {/* Footer */}
       <footer className="fixed bottom-0 w-full bg-green-600 py-4 text-center">
         <h2 className="text-sm font-semibold text-white">
@@ -140,5 +137,5 @@ export default function EducationProfile() {
         </h2>
       </footer>
     </div>
-  )  
+  )
 }

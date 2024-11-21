@@ -52,75 +52,75 @@ export default function Login({ onLogin }: LoginProps) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow flex items-center justify-center bg-gray-100">
+      <main className="flex flex-grow items-center justify-center bg-gray-100">
         <div className="relative w-full max-w-sm rounded-lg bg-white p-8 shadow-md">
-        {/* Barra verde no topo */}
-        <div className="absolute top-0 left-0 flex h-10 w-full items-center justify-center rounded-t-lg bg-green-600">
-          <span className="text-sm font-semibold text-white">
-            Bem-vindo à Única
-          </span>
-        </div>
-
-        {/* Título */}
-        <h2 className="mb-6 mt-10 text-center text-xl font-semibold text-gray-800">
-          Acesse a sua conta
-        </h2>
-
-        {/* Campos de entrada */}
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            E-mail
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Digite seu e-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-800 shadow-sm focus:border-green-600 focus:ring-green-600"
-          />
-        </div>
-
-        <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Senha
-          </label>
-          <div className="relative mt-1">
-            <input
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Digite sua Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={handleKeyDown} 
-              className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-800 shadow-sm focus:border-green-600 focus:ring-green-600"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-3 flex items-center text-green-600 hover:text-green-800"
-            >
-              {showPassword ? (
-                <EyeSlashIcon className="h-5 w-5" />
-              ) : (
-                <EyeIcon className="h-5 w-5" />
-              )}
-            </button>
+          {/* Barra verde no topo */}
+          <div className="absolute left-0 top-0 flex h-10 w-full items-center justify-center rounded-t-lg bg-green-600">
+            <span className="text-sm font-semibold text-white">
+              Bem-vindo à Única
+            </span>
           </div>
-        </div>
 
-        {/* Botão de login */}
-        <button
-          onClick={handleLogin}
-          disabled={isLoggingIn}
-          className="flex w-full items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:bg-gray-400"
-        >
+          {/* Título */}
+          <h2 className="mb-6 mt-10 text-center text-xl font-semibold text-gray-800">
+            Acesse a sua conta
+          </h2>
+
+          {/* Campos de entrada */}
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              E-mail
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Digite seu e-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-800 shadow-sm focus:border-green-600 focus:ring-green-600"
+            />
+          </div>
+
+          <div className="mb-6">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Senha
+            </label>
+            <div className="relative mt-1">
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Digite sua Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-800 shadow-sm focus:border-green-600 focus:ring-green-600"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-3 flex items-center text-green-600 hover:text-green-800"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Botão de login */}
+          <button
+            onClick={handleLogin}
+            disabled={isLoggingIn}
+            className="flex w-full items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:bg-gray-400"
+          >
             {isLoggingIn ? 'Entrando...' : 'Entrar'}
           </button>
         </div>

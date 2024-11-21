@@ -49,64 +49,49 @@ export function PersonHealthData({
   return (
     <div className="">
       {/* Título em verde com texto branco */}
-      <h2 className="border-b border-neutral-300 pb-2 text-2xl font-bold text-center text-white bg-green-600 p-2 rounded-t-lg">
+      <h2 className="rounded-t-lg border-b border-neutral-300 bg-green-600 p-2 pb-2 text-center text-2xl font-bold text-white">
         Dados de Saúde
       </h2>
-  
       {uniqueData.length > 0 ? (
         uniqueData.map((pessoa: PessoaSaude) => {
-          const healthCondition =
-            pessoa.nomeCidadao === 'HENRY GABRIEL DA SILVA FERREIRA'
-              ? 'CID J45 - Asma'
-              : pessoa.condicaoSaude;
-  
-          const vacinaPendente =
-            pessoa.nomeCidadao === 'HENRY GABRIEL DA SILVA FERREIRA'
-              ? 'Gripe'
-              : pessoa.nomeCidadao === 'Lara Souza da Trindade'
-              ? 'Catapora'
-              : undefined;
-  
-          const cpf = cpfMapping[pessoa.nomeCidadao];
-  
           return (
             <div
               key={pessoa.coFatorCidadao}
-              className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4 border bg-white p-4 shadow-sm"
+              className="mb-4 grid grid-cols-1 gap-4 border bg-white p-4 shadow-sm sm:grid-cols-2"
             >
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800 text-base">
+                  <span className="text-base font-semibold text-neutral-800">
                     Última Atualização:
                   </span>
-                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                  <div className="break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.ultimaAtualizacao}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800 text-base">
+                  <span className="text-base font-semibold text-neutral-800">
                     Unidade:
                   </span>
-                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                  <div className="break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.unidadeSaude}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800 text-base">
+                  <span className="text-base font-semibold text-neutral-800">
                     Consulta:
                   </span>
-                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                  <div className="break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.ultimaConsultaFormatada}
                   </div>
                 </div>
               </div>
-  
+
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-neutral-800 text-base">
+                  <span className="text-base font-semibold text-neutral-800">
                     Saúde:
                   </span>
-                  <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
+                  <div className="break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.deficiencia === '0' &&
                     pessoa.diabetes === '0' &&
                     pessoa.hipertensaoArterial === '0'
@@ -114,29 +99,17 @@ export function PersonHealthData({
                       : 'Com problemas de saúde.'}
                   </div>
                 </div>
-  
-                {vacinaPendente && (
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-neutral-800 text-base">
-                      Vacina Pendente:
-                    </span>
-                    <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
-                      {vacinaPendente}
-                    </div>
+                <div className="flex flex-col">
+                  <span className="text-base font-semibold text-neutral-800">
+                    Visita Domiciliar:
+                  </span>
+                  <div className="break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
+                    {pessoa.ultimaVisitaDomiciliarFormatada}
                   </div>
-                )}
-
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-neutral-800 text-base">
-                      Visita Domiciliar:
-                    </span>
-                    <div className="border border-green-600 p-2 rounded-md bg-white text-neutral-600 break-words">
-                      {pessoa.ultimaVisitaDomiciliarFormatada}
-                    </div>
-                  </div>
+                </div>
               </div>
             </div>
-          );
+          )
         })
       ) : (
         <p className="italic text-neutral-500">Nenhum resultado encontrado.</p>

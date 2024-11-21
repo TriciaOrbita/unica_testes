@@ -45,63 +45,79 @@ export function PersonSchoolData({
   return (
     <div>
       {/* Título em verde com texto branco */}
-      <h2 className="border-b border-neutral-300 pb-1 text-2xl font-bold text-white bg-green-600 p-2 rounded-t-lg text-center">
-    Dados Escolares
-  </h2>
-       
+      <h2 className="rounded-t-lg border-b border-neutral-300 bg-green-600 p-2 pb-1 text-center text-2xl font-bold text-white">
+        Dados Escolares
+      </h2>
+
       {/* Scrollable Area */}
-      <ScrollArea className="overflow-auto"> {/* Ajuste de altura para o ScrollArea */}
+      <ScrollArea className="overflow-auto">
+        {' '}
+        {/* Ajuste de altura para o ScrollArea */}
         {filteredData.length > 0 ? (
           filteredData.map((pessoa: PessoaEscola) => (
             <div
               key={pessoa.cpf}
-              className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4 border border-neutral-200 bg-white p-4 text-sm shadow-sm"
+              className="mb-4 grid grid-cols-1 gap-4 border border-neutral-200 bg-white p-4 text-sm shadow-sm sm:grid-cols-2"
             >
               {/* Primeira coluna de dados */}
               <div className="flex flex-col gap-2">
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800 text-base">Última Atualização:</span>
-                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                  <span className="text-base font-medium text-neutral-800">
+                    Última Atualização:
+                  </span>
+                  <div className="min-h-[30px] w-auto break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.dataAtt || 'Data não disponível'}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800 text-base">Escola:</span>
-                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                  <span className="text-base font-medium text-neutral-800">
+                    Escola:
+                  </span>
+                  <div className="min-h-[30px] w-auto break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.nomeEscola || 'Nome não disponível'}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800 text-base">Turma:</span>
-                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                  <span className="text-base font-medium text-neutral-800">
+                    Turma:
+                  </span>
+                  <div className="min-h-[30px] w-auto break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.turma || 'Turma não disponível'}
                   </div>
                 </div>
               </div>
-  
+
               {/* Segunda coluna de dados */}
               <div className="flex flex-col gap-2">
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800 text-base">Situação:</span>
-                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                  <span className="text-base font-medium text-neutral-800">
+                    Situação:
+                  </span>
+                  <div className="min-h-[30px] w-auto break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.situacao || 'Situação não disponível'}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800 text-base">PCD:</span>
-                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                  <span className="text-base font-medium text-neutral-800">
+                    PCD:
+                  </span>
+                  <div className="min-h-[30px] w-auto break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.pcd || 'Não disponível'}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800 text-base">Filição 1:</span>
-                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                  <span className="text-base font-medium text-neutral-800">
+                    Filição 1:
+                  </span>
+                  <div className="min-h-[30px] w-auto break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.filiacao1 || 'Não disponível'}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-neutral-800 text-base">Filição 2:</span>
-                  <div className="border border-green-600 p-2 rounded-md min-h-[30px] w-auto bg-white text-neutral-600 break-words">
+                  <span className="text-base font-medium text-neutral-800">
+                    Filição 2:
+                  </span>
+                  <div className="min-h-[30px] w-auto break-words rounded-md border border-green-600 bg-white p-2 text-neutral-600">
                     {pessoa.filiacao2 || 'Não disponível'}
                   </div>
                 </div>
@@ -109,9 +125,11 @@ export function PersonSchoolData({
             </div>
           ))
         ) : (
-          <p className="italic text-neutral-500">Nenhum resultado encontrado.</p>
+          <p className="italic text-neutral-500">
+            Nenhum resultado encontrado.
+          </p>
         )}
       </ScrollArea>
     </div>
-  )    
+  )
 }
