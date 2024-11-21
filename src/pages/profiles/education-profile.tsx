@@ -97,7 +97,7 @@ export default function EducationProfile() {
               <>
                 <div className="mx-auto flex max-w-3xl flex-col gap-8">
                   {/* Center Section (Person Data) */}
-                  <section className="mx-auto max-h-96 max-w-3xl flex-1 border border-green-300 p-6">
+                  <section className="mx-auto max-h-96 max-w-3xl flex-1 border p-6">
                     <div className="max-h-96 overflow-y-auto">
                       <PersonSchoolData
                         pessoasEscola={pessoasEscola}
@@ -107,7 +107,7 @@ export default function EducationProfile() {
                   </section>
 
                   {/* Seção para Cadunico e Avaliacoes lado a lado */}
-                  <section className="flex-1 border border-green-300 p-6">
+                  <section className="flex-1 border p-6">
                     <div className="mt-8 flex gap-8">
                       <div className="max-h-96 flex-1 overflow-y-auto">
                         <PersonCadunicoData
@@ -123,7 +123,7 @@ export default function EducationProfile() {
                   </section>
                 </div>
                 {/* Right Sidebar (Tags) */}
-                <aside className="ml-auto max-h-[300px] w-[300px] overflow-y-auto border border-green-300">
+                <aside className="ml-auto max-h-[300px] w-[300px] overflow-y-auto border">
                   <Tags
                     cadunicoData={pessoasCadunico}
                     searchTerm={searchTerm}
