@@ -2,7 +2,7 @@ import { usePessoasEscola } from '@/service/queries/getPessoasEscola'
 import { usePessoas } from '@/service/queries/getPessoas'
 import { PersonSchoolData } from '@/components/pages/home/person-school-data'
 import { PersonCadunicoData } from '@/components/pages/home/person-cadunico-data'
-import { PersonHealthData } from '@/components/pages/home/person-health-data'
+// import { PersonHealthData } from '@/components/pages/home/person-health-data'
 import { PersonData } from '@/components/pages/home/person-data'
 import Tags from '@/components/pages/home/Tags'
 import SearchInput from '@/components/pages/home/SearchInput'
@@ -17,7 +17,7 @@ export default function EducationProfile() {
   const { data: pessoas, error: errorPessoa } = usePessoas()
   const { data: pessoasEscola, error: errorEscola } = usePessoasEscola()
   const { data: pessoasCadunico, error: errorCadunico } = usePessoas()
-  const { data: pessoasSaude, error: errorSaude } = usePessoasSaude()
+  const { data: pessoasSaude } = usePessoasSaude()
 
   const pessoa = pessoas?.[0]
 
