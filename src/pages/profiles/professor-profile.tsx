@@ -39,7 +39,7 @@ export default function EducationProfile() {
     // Limpa o localStorage ou qualquer outro dado de autenticação
     localStorage.removeItem('isAuthenticated')
     // Redireciona para a página de login
-    router.push('/login')
+    router.push('/src/components/pages/login/login.tsx')
   }
 
   return (

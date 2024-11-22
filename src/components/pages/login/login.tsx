@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { Footer } from '@/components/ui/footer'
 
 interface LoginProps {
   onLogin: (profile: string) => void
@@ -12,16 +13,36 @@ export default function Login({ onLogin }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoggingIn, setIsLoggingIn] = useState(false)
 
+  useEffect(() => {
+    // Recupera o perfil salvo no localStorage, se houver
+    const savedProfile = localStorage.getItem('userProfile')
+    if (savedProfile) {
+      onLogin(savedProfile) // Loga automaticamente
+    }
+  }, [onLogin])
+
   const handleLogin = () => {
     setIsLoggingIn(true)
     setTimeout(() => {
+      let profile = ''
+
       if (email === 'adminorbita@teste.com' && password === 'admin123') {
-        onLogin('Admin')
+        profile = 'Admin'
       } else if (email === 'educacao@teste.com' && password === 'edu123') {
-        onLogin('Educacao')
+        profile = 'Educacao'
+      } else if (email === 'professor@teste.com' && password === 'prof123') {
+        //   profile = 'Professor'
+      } else if (email === 'aluno@teste.com' && password === 'alu123') {
+        profile = 'Aluno'
       } else {
         alert('Credenciais inválidas')
+        setIsLoggingIn(false)
+        return
       }
+
+      // Salva o perfil no localStorage
+      localStorage.setItem('userProfile', profile)
+      onLogin(profile)
       setIsLoggingIn(false)
     }, 1500)
   }
@@ -126,12 +147,7 @@ export default function Login({ onLogin }: LoginProps) {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="fixed bottom-0 w-full bg-green-600 py-4 text-center">
-        <h2 className="text-sm font-semibold text-white">
-          Desenvolvido por Órbita Tecnologia
-        </h2>
-      </footer>
+      <Footer />
     </div>
   )
 }

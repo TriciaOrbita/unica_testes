@@ -1,3 +1,7 @@
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Login from '@/components/pages/login/login'
+import Profile from '@/pages/profiles/profile'
 import { usePessoasEscola } from '@/service/queries/getPessoasEscola'
 import { usePessoasSaude } from '@/service/queries/getPessoasSaude'
 import { usePessoas } from '@/service/queries/getPessoas'
@@ -6,13 +10,9 @@ import { PersonSchoolData } from '@/components/pages/home/person-school-data'
 import { PersonCadunicoData } from '@/components/pages/home/person-cadunico-data'
 import { PersonData } from '@/components/pages/home/person-data'
 import Tags from '@/components/pages/home/Tags'
-import Login from '@/components/pages/login/login'
-import Profile from '@/pages/profiles/profile'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
 import SearchInput from '@/components/pages/home/SearchInput'
-import { useRouter } from 'next/router'
 
 export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -25,6 +25,20 @@ export default function Home() {
   const router = useRouter()
 
   const pessoa = pessoas?.[0]
+
+  useEffect(() => {
+    // Recupera o perfil salvo no localStorage, se houver
+    const savedProfile = localStorage.getItem('userProfile')
+    if (savedProfile) {
+      setIsAuthenticated(true)
+      setSelectedProfile(savedProfile)
+      if (savedProfile === 'Admin') {
+        router.push('/')
+      } else {
+        router.push(`/profiles/${savedProfile.toLowerCase()}-profile`)
+      }
+    }
+  }, [router])
 
   useEffect(() => {
     // Redireciona para a página do perfil de Educação se o perfil for selecionado como 'Educação'
@@ -45,16 +59,24 @@ export default function Home() {
   }
 
   const handleLogout = () => {
+    // Limpa o localStorage e reseta os estados
+    localStorage.removeItem('userProfile')
     setIsAuthenticated(false)
     setSelectedProfile(null)
+    router.push('/login') // Redireciona para a página de login
   }
 
   const handleLogin = (profile: string) => {
     setIsAuthenticated(true)
     setSelectedProfile(profile)
+    // Salva o perfil no localStorage
+    localStorage.setItem('userProfile', profile)
+
+    // Redireciona para a página correta após o login
     if (profile === 'Admin') {
-      // Admin permanece na tela de seleção de perfis
-      setSelectedProfile('Admin')
+      router.push('/')
+    } else {
+      router.push(`/profiles/${profile.toLowerCase()}-profile`)
     }
   }
 
@@ -67,8 +89,7 @@ export default function Home() {
   }
 
   return (
-    <div className="relative bg-gray-100">
-      {/* Header */}
+    <div className="relative bg-gray-100 pb-8">
       <header className="fixed top-0 z-50 w-full border-b-2 border-green-700/40">
         <div className="bg-white py-4">
           <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6">
@@ -124,7 +145,7 @@ export default function Home() {
             {searchTerm && (
               <>
                 {/* Center Section (Person Data) */}
-                <section className="mx-auto max-w-3xl flex-1 p-6">
+                <section className="mx-auto max-w-3xl flex-1 p-6 pt-4">
                   <div className="max-h-96 overflow-y-auto">
                     <PersonSchoolData
                       pessoasEscola={pessoasEscola}
